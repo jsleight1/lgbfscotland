@@ -1,5 +1,5 @@
 [project]
-name = "LGBFScotland"
+name = "lgbfscotland"
 version = "0.1.0"
 description = "Python shiny application for presenting Scottish local government benchmarking framework data"
 readme = "README.md"
@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.scripts]
-LGBFScotland = "LGBFScotland:main"
+lgbfscotland = "lgbfscotland:main"
 
 [build-system]
 requires = ["uv_build>=0.10.4,<0.11.0"]
