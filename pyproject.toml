@@ -1,0 +1,23 @@
+[project]
+name = "LGBFScotland"
+version = "0.1.0"
+description = "Python shiny application for presenting Scottish local government benchmarking framework data"
+readme = "README.md"
+authors = [
+    { name = "Jack Sleight", email = "jacksleight@hotmail.co.uk" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "pandas>=3.0.1",
+    "pytest>=9.0.2",
+    "pytest-snapshot>=0.9.0",
+    "ruff>=0.15.6",
+    "shiny>=1.5.1",
+]
+
+[project.scripts]
+LGBFScotland = "LGBFScotland:main"
+
+[build-system]
+requires = ["uv_build>=0.10.4,<0.11.0"]
+build-backend = "uv_build"

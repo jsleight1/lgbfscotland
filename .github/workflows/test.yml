@@ -1,0 +1,33 @@
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+name: Test package
+
+permissions: read-all
+
+jobs:
+  test:
+    runs-on: ${{ matrix.config.os }}
+    name: ${{ matrix.config.os}} ${{matrix.config.python}}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {os: ubuntu-latest, python: '3.14'}
+          - {os: macos, python: '3.14'}
+          - {os: windows, python: '3.14'}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv and set the Python version
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: ${{ matrix.config.python }}
+
+      - name: Install the project
+        run: uv sync --locked --all-extras --dev
+
+      - name: Run tests
+        run: uv run pytest
