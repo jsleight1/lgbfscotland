@@ -1,6 +1,8 @@
 from copy import deepcopy
 from lgbfscotland.indicator import indicator
 from lgbfscotland.utils_example_data import example_lgbf_metadata, example_lgbf_data
+from shiny import ui, module, render
+from htmltools import tags
 
 
 class indicator_area:
@@ -65,6 +67,32 @@ class indicator_area:
         assert all([isinstance(i, indicator) for i in self.data]), (
             "indicator area objects must only contain indicator objects"
         )
+
+    @staticmethod
+    @module.ui
+    def mod_ui(object):
+        authorities = ["a"]
+        return ui.div(
+            ui.card(
+                ui.card_header(object.id),
+                ui.input_select(
+                    id="authority_select",
+                    label="Select authority",
+                    choices=authorities,
+                    selected=authorities[0],
+                ),
+                ui.output_ui("indicator_boxes"),
+            )
+        )
+
+    @staticmethod
+    @module.server
+    def mod_server(input, output, session, object):
+        @render.ui
+        def indicator_boxes():
+            return ui.div(tags.h4(object.id))
+
+        return True
 
     @staticmethod
     def example_indicator_area():

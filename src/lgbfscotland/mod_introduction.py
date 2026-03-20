@@ -36,11 +36,11 @@ def mod_introduction_ui():
             Local Government Benchmarking Framework
             """,
                 tags.a(
-                    "(LGBF) ",
+                    "(LGBF)",
                     href="https://www.improvementservice.org.uk/benchmarking/explore-the-data",
                     target="_blank",
                 ),
-                "data source.",
+                " data source.",
             ),
         ),
     )
