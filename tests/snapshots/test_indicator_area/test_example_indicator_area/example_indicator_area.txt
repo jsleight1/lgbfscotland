@@ -1,0 +1,5 @@
+
+        Indicator area object
+        - id: service_area
+        - N indicators: 4
+        

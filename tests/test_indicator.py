@@ -73,6 +73,13 @@ def test_plot_indicator(snapshot):
     )
 
 
+def test_indicator_properties():
+    output = indicator.example_indicator()
+    with pytest.raises(AssertionError) as err:
+        output.data = 1
+    assert "data is not DataFrame" in str(err.value)
+
+
 def test_example_indicator(snapshot):
     output = indicator.example_indicator()
     assert isinstance(output, indicator)
