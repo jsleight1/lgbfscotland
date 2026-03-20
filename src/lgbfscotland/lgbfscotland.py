@@ -1,5 +1,10 @@
 import importlib.metadata
+from lgbfscotland.utils_config import settings
+from lgbfscotland.utils_data_processing import load_lgbf_data
+from loguru import logger
 from shiny import ui
+
+lgbf_data = load_lgbf_data(settings)
 
 app_ui = ui.page_navbar(
     ui.nav_spacer(),
@@ -12,4 +17,5 @@ app_ui = ui.page_navbar(
 
 
 def server(input, output, session):
+    logger.info(f"Running lgbfscotland in {settings.type} mode")
     return True

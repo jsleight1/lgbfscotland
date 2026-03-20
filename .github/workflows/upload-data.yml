@@ -1,0 +1,46 @@
+on:
+  schedule:
+    # Upload data to Azure blob every 6 months
+    - cron: "0 0 1 */6 *"
+
+name: upload-data.yaml
+
+permissions: read-all
+
+jobs:
+  upload-data:
+    runs-on: ${{ matrix.config.os }}
+    name: ${{ matrix.config.os}} ${{matrix.config.python}}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {os: ubuntu-latest, python: '3.14'}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install uv and set the Python version
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: ${{ matrix.config.python }}
+
+      - name: Install the project
+        run: uv sync --locked --all-extras --dev
+
+      - name: Run tests
+        run: uv run pytest
+
+      - name: Upload data to Azure blob
+        env:
+          ENV_FOR_DYNACONF: production
+          azure_storage_container: ${{ secrets.AZURE_STORAGE_CONTAINER }}
+          blob_account_url: ${{ secrets.BLOB_ACCOUNT_URL }}
+          blob_account_key: ${{ secrets.BLOB_ACCOUNT_KEY }}
+        working-directory: /home/app
+        run: |
+          from lgbfscotland.utils_data_processing import save_lgbf_data
+          from lgbfscotland.utils_config import settings
+          print(settings.type)
+          save_lgbf_data
+        shell: python {0}
