@@ -40,7 +40,6 @@ jobs:
           azure_storage_container: ${{ secrets.AZURE_STORAGE_CONTAINER }}
           blob_account_url: ${{ secrets.BLOB_ACCOUNT_URL }}
           blob_account_key: ${{ secrets.BLOB_ACCOUNT_KEY }}
-        working-directory: /home/app
         run: |
           from lgbfscotland.utils_data_processing import save_lgbf_data
           from lgbfscotland.utils_config import settings
