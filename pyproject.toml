@@ -10,6 +10,7 @@ requires-python = ">=3.14"
 dependencies = [
     "azure-storage-blob>=12.28.0",
     "dynaconf[toml]>=3.2.13",
+    "faicons>=0.2.2",
     "loguru>=0.7.3",
     "pandas>=3.0.1",
     "plotly>=6.6.0",

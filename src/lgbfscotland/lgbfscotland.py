@@ -1,11 +1,45 @@
 import importlib.metadata
+import pandas as pd
 from lgbfscotland.utils_config import settings
 from lgbfscotland.utils_data_processing import load_lgbf_data
+from lgbfscotland.indicator import indicator
+from lgbfscotland.indicator_area import indicator_area
+from lgbfscotland.mod_introduction import mod_introduction_ui, mod_introduction_server
 from loguru import logger
-from shiny import ui
+from faicons import icon_svg as icon
+from shiny import ui, render
 
 app_ui = ui.page_navbar(
+    ui.nav_panel(
+        icon("house"),
+        ui.layout_sidebar(
+            ui.sidebar(
+                ui.input_radio_buttons(
+                    id="selected_content",
+                    label=None,
+                    choices=["Introduction"],
+                    selected="Introduction",
+                    inline=False,
+                )
+            ),
+            ui.output_ui("main_content"),
+        ),
+    ),
     ui.nav_spacer(),
+    ui.nav_control(
+        ui.span(
+            icon("linkedin"),
+            href="https://www.linkedin.com/in/jack-sleight-461a6699/",
+            target="_blank",
+        )
+    ),
+    ui.nav_control(
+        ui.span(
+            icon("github"),
+            href="https://github.com/jsleight1/lgbfscotland",
+            target="_blank",
+        )
+    ),
     ui.nav_control(ui.input_dark_mode(id="colour_mode")),
     ui.nav_control("v" + importlib.metadata.version("LGBFScotland")),
     title=ui.tags.span("LGBFScotland"),
@@ -15,6 +49,34 @@ app_ui = ui.page_navbar(
 
 
 def server(input, output, session):
-    lgbf_data = load_lgbf_data(settings)
     logger.info(f"Running lgbfscotland in {settings.type} mode")
-    return True
+    lgbf_data = load_lgbf_data(settings)
+    indicator_areas = create_indicator_areas(lgbf_data)
+
+    ui.update_radio_buttons(
+        id="selected_content",
+        choices=["Introduction"] + [i.id for i in indicator_areas],
+    )
+
+    @render.ui
+    def main_content():
+        selected_content = input.selected_content()
+
+        return mod_introduction_ui("introduction")
+
+    mod_introduction_server("introduction", data=lgbf_data)
+
+
+def create_indicator_areas(x: pd.DataFrame):
+    service_areas = [
+        group for _, group in x.groupby("Indicators_Information_ServiceArea")
+    ]
+    indicator_areas = []
+    for i in service_areas:
+        grps = ["Indicators_Information_Code", "LA_Information_LocalAuthority"]
+        output = indicator_area(
+            data=[indicator(group) for _, group in i.groupby(grps)],
+            id=pd.unique(i["Indicators_Information_ServiceArea"]).tolist()[0],
+        )
+        indicator_areas += [output]
+    return indicator_areas

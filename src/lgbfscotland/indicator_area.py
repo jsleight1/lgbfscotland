@@ -5,7 +5,7 @@ from lgbfscotland.utils_example_data import example_lgbf_metadata, example_lgbf_
 
 class indicator_area:
     def __init__(self, data, id):
-        self._data = data
+        self._data = deepcopy(data)
         self._id = id
         self._validate()
 
@@ -17,7 +17,7 @@ class indicator_area:
         """
         return output
 
-    def __str__(self):
+    def __repr__(self):
         output = f"""
         Indicator area object
         - id: {self.id}
