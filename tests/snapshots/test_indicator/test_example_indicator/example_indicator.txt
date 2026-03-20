@@ -1,0 +1,8 @@
+
+        Indicator object
+        - id: SW01
+        - title: Home care costs per hour for people aged 65 or over
+        - authority: Aberdeen City
+        - category: Financial
+        - Dimensions: 18 x 2
+        
