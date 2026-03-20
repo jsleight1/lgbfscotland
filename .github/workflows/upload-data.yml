@@ -28,8 +28,8 @@ jobs:
         with:
           python-version: ${{ matrix.config.python }}
 
-      - name: Install project
-        run: uv pip install --system .
+      - name: Install the project
+        run: uv sync --locked --all-extras --dev
 
       - name: Upload data to Azure blob
         env:
@@ -43,4 +43,4 @@ jobs:
           # from lgbfscotland.utils_config import settings
           # print(settings.type)
           # save_lgbf_data
-        shell: python {0}
+        shell: uv run python {0}
