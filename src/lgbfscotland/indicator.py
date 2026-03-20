@@ -1,4 +1,7 @@
 import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 from copy import deepcopy
 from lgbfscotland.utils_example_data import example_lgbf_metadata, example_lgbf_data
 
@@ -106,6 +109,99 @@ class indicator:
         output = pd.unique(self.data[col]).tolist()
         assert len(output) == 1, f"'{col}' must have only 1 unique value"
         return output[0]
+
+    def plot(self, type, **kwargs):
+        """Plot indicator object.
+
+        Parameters
+        ----------
+        type: str
+            Type of plot. Either "indicator" or "numerator_denominator"
+        **kwargs:
+            Passed to plotting methods.
+
+        Examples
+        ----------
+        >>> x = indicator.example_indicator()
+        >>> x.plot("indicator")
+        """
+        match type:
+            case "indicator":
+                return self._indicator_plot(**kwargs)
+            case "numerator_denominator":
+                return self._numerator_denominator_plot(**kwargs)
+            case _:
+                raise Exception(type + " plot type not implemented")
+
+    def _indicator_plot(self, **kwargs):
+        data = self._indicator_plot_data()
+        fig = px.line(data, x="Year", y="Metric", color="Category")
+        fig = fig.update_layout(hovermode="x unified")
+        fig = fig.update_xaxes(type="category")
+        fig.show()
+
+    def _numerator_denominator_plot(self, **kwargs):
+        data = self._numerator_denominator_plot_data()
+        num_title = pd.unique(data["Indicators_Information_Numerator_Title"]).tolist()[
+            0
+        ]
+        den_title = pd.unique(
+            data["Indicators_Information_Denominator_Title"]
+        ).tolist()[0]
+        fig = make_subplots(specs=[[{"secondary_y": True}]])
+        fig = fig.add_trace(
+            go.Scatter(
+                x=data["LA_Data_LGBF_Year"],
+                y=data["LA_Data_LA_Numerator_real"],
+                name=num_title,
+            ),
+            secondary_y=False,
+        )
+        fig = fig.add_trace(
+            go.Scatter(
+                x=data["LA_Data_LGBF_Year"],
+                y=data["LA_Data_LA_Den_Real"],
+                name=den_title,
+            ),
+            secondary_y=True,
+        )
+        fig = fig.update_xaxes(title_text="Year", type="category")
+        fig = fig.update_yaxes(title_text=num_title, secondary_y=False)
+        fig = fig.update_yaxes(title_text=den_title, secondary_y=True)
+        fig = fig.update_layout(hovermode="x unified")
+        fig.show()
+
+    def _indicator_plot_data(self, **kwargs):
+        output = deepcopy(self.data)
+        req_cols = {
+            "LA_Data_LGBF_Year": "Year",
+            "Indicators_Information_Unit": "Indicators_Information_Unit",
+            "Indicators_Information_Title": "Indicators_Information_Title",
+            "LA_Data_LA_IndicatorReal": "Local Authority",
+            "Scotland_Data_Scotland_Indicator_Real": "Scotland",
+            "FG_Data_FG_Avg_Indicator_Real": "Family Group",
+        }
+        output = output.rename(columns=req_cols)[req_cols.values()]
+        output = output.melt(
+            id_vars="Year",
+            value_vars=["Local Authority", "Family Group", "Scotland"],
+            var_name="Category",
+            value_name="Metric",
+        )
+        return output
+
+    def _numerator_denominator_plot_data(self, **kwargs):
+        output = deepcopy(self.data)
+        req_cols = [
+            "Indicators_Information_Code",
+            "LA_Information_LocalAuthority",
+            "LA_Data_LGBF_Year",
+            "LA_Data_LA_Numerator_real",
+            "LA_Data_LA_Den_Real",
+            "Indicators_Information_Numerator_Title",
+            "Indicators_Information_Denominator_Title",
+        ]
+        return output[req_cols]
 
     @staticmethod
     def example_indicator():

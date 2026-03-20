@@ -64,6 +64,15 @@ def test_indicator_validation():
     assert "Missing columns" in str(err.value)
 
 
+def test_plot_indicator(snapshot):
+    x = indicator.example_indicator()
+    with pytest.raises(TypeError) as err:
+        x.plot()
+    assert "indicator.plot() missing 1 required positional argument: 'type'" in str(
+        err.value
+    )
+
+
 def test_example_indicator(snapshot):
     output = indicator.example_indicator()
     assert isinstance(output, indicator)
