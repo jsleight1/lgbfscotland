@@ -6,7 +6,7 @@
 on:
   pull_request:
 
-name: Upload processed LGBF data to Azure
+name: Upload data
 
 permissions: read-all
 
@@ -31,20 +31,16 @@ jobs:
       - name: Install the project
         run: uv sync --locked --all-extras --dev
 
-      - name: Run tests
+      - name: Upload data to Azure blob
+        env:
+          ENV_FOR_DYNACONF: production
+          azure_storage_container: ${{ secrets.AZURE_STORAGE_CONTAINER }}
+          blob_account_url: ${{ secrets.BLOB_ACCOUNT_URL }}
+          blob_account_key: ${{ secrets.BLOB_ACCOUNT_KEY }}
         run: |
-          ls -lth
-          uv run pytest
-
-      # - name: Upload data to Azure blob
-      #   env:
-      #     ENV_FOR_DYNACONF: production
-      #     azure_storage_container: ${{ secrets.AZURE_STORAGE_CONTAINER }}
-      #     blob_account_url: ${{ secrets.BLOB_ACCOUNT_URL }}
-      #     blob_account_key: ${{ secrets.BLOB_ACCOUNT_KEY }}
-      #   run: |
-      #     from lgbfscotland.utils_data_processing import save_lgbf_data
-      #     from lgbfscotland.utils_config import settings
-      #     print(settings.type)
-      #     save_lgbf_data
-      #   shell: python {0}
+          import lgbfscotland
+          # from lgbfscotland.utils_data_processing import save_lgbf_data
+          # from lgbfscotland.utils_config import settings
+          # print(settings.type)
+          # save_lgbf_data
+        shell: python {0}
