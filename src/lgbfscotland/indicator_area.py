@@ -1,8 +1,11 @@
+import pandas as pd
 from copy import deepcopy
 from lgbfscotland.indicator import indicator
 from lgbfscotland.utils_example_data import example_lgbf_metadata, example_lgbf_data
-from shiny import ui, module, render
+from lgbfscotland.utils_general import clean_id
+from shiny import ui, module, render, req
 from htmltools import tags
+from loguru import logger
 
 
 class indicator_area:
@@ -71,12 +74,12 @@ class indicator_area:
     @staticmethod
     @module.ui
     def mod_ui(object):
-        authorities = ["a"]
+        authorities = [i.authority() for i in object.data]
         return ui.div(
             ui.card(
                 ui.card_header(object.id),
                 ui.input_select(
-                    id="authority_select",
+                    id="select_authority",
                     label="Select authority",
                     choices=authorities,
                     selected=authorities[0],
@@ -90,9 +93,36 @@ class indicator_area:
     def mod_server(input, output, session, object):
         @render.ui
         def indicator_boxes():
-            return ui.div(tags.h4(object.id))
+            req(input.select_authority)
+            selected_authority = input.select_authority()
+            logger.info(f"Selected {selected_authority}")
+            data = object._split_by_category(selected_authority)
+            output = []
+            for key, value in data.items():
+                indicators = [ind for ind in value["data"].tolist()]
+                output += [
+                    ui.navset_card_tab(
+                        ui.nav_spacer(),
+                        ui.nav_menu(
+                            "Select indicator",
+                            *[
+                                ind.mod_ui(clean_id(ind.id()), ind)
+                                for ind in indicators
+                            ],
+                        ),
+                        title=key,
+                    )
+                ]
+                [ind.mod_server(clean_id(ind.id()), ind) for ind in indicators]
+            return ui.div(*output)
 
-        return True
+    def _split_by_category(self, authority):
+        output = [i for i in self.data if i.authority() == authority]
+        output = pd.DataFrame(
+            {"category": [i.category() for i in output], "data": output}
+        )
+        output = {name: group for name, group in output.groupby("category")}
+        return output
 
     @staticmethod
     def example_indicator_area():

@@ -22,8 +22,7 @@ def mod_introduction_ui():
             Indicators are categorised into indicator service areas, which can be
             viewed in the sidebar. Each section contains a series of
             interactive line plots visualising each indicator and values used
-            to derive this indicator (if appliable against) time. A datatable
-            of the datatable used to produce these figures is also provided.
+            to derive this indicator (if appliable against) time.
             """
             ),
         ),

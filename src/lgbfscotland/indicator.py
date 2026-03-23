@@ -4,6 +4,10 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from copy import deepcopy
 from lgbfscotland.utils_example_data import example_lgbf_metadata, example_lgbf_data
+from lgbfscotland.utils_general import wrap_text
+from shiny import ui, module, render
+from shinywidgets import output_widget, render_widget
+from htmltools import tags
 
 
 class indicator:
@@ -138,7 +142,11 @@ class indicator:
         fig = px.line(data, x="Year", y="Metric", color="Category")
         fig = fig.update_layout(hovermode="x unified")
         fig = fig.update_xaxes(type="category")
-        fig.show()
+        fig = fig.update_yaxes(title_text=wrap_text(self.title()))
+        fig.update_layout(
+            legend=dict(orientation="h", yanchor="top", y=-0.5, xanchor="center", x=0.5)
+        )
+        return fig
 
     def _numerator_denominator_plot(self, **kwargs):
         data = self._numerator_denominator_plot_data()
@@ -166,10 +174,13 @@ class indicator:
             secondary_y=True,
         )
         fig = fig.update_xaxes(title_text="Year", type="category")
-        fig = fig.update_yaxes(title_text=num_title, secondary_y=False)
-        fig = fig.update_yaxes(title_text=den_title, secondary_y=True)
+        fig = fig.update_yaxes(title_text=wrap_text(num_title), secondary_y=False)
+        fig = fig.update_yaxes(title_text=wrap_text(den_title), secondary_y=True)
         fig = fig.update_layout(hovermode="x unified")
-        fig.show()
+        fig.update_layout(
+            legend=dict(orientation="h", yanchor="top", y=-0.5, xanchor="center", x=0.5)
+        )
+        return fig
 
     def _indicator_plot_data(self, **kwargs):
         output = deepcopy(self.data)
@@ -202,6 +213,49 @@ class indicator:
             "Indicators_Information_Denominator_Title",
         ]
         return output[req_cols]
+
+    @staticmethod
+    @module.ui
+    def mod_ui(object):
+        return ui.nav_panel(
+            object.title(),
+            ui.card(
+                ui.card_header(object.title()),
+                ui.output_ui("indicator_ui"),
+                min_height="500px",
+            ),
+        )
+
+    @staticmethod
+    @module.server
+    def mod_server(input, output, session, object):
+        @render_widget
+        def indicator_plot():
+            return object.plot(type="indicator")
+
+        @render_widget
+        def numerator_denominator_plot():
+            return object.plot(type="numerator_denominator")
+
+        @render.ui
+        def indicator_ui():
+            num_den_widget = None
+            col_widths = [12, 1]
+            if object._contains_num_den():
+                num_den_widget = output_widget("numerator_denominator_plot")
+                col_widths = [6, 6]
+
+            return ui.layout_columns(
+                output_widget("indicator_plot"),
+                num_den_widget,
+                col_widths=col_widths,
+            )
+
+    def _contains_num_den(self):
+        return not (
+            pd.isna(self.data["LA_Data_LA_Numerator_real"]).all()
+            and pd.isna(self.data["LA_Data_LA_Den_Real"]).all()
+        )
 
     @staticmethod
     def example_indicator():
