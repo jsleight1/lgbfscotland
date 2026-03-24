@@ -4,8 +4,8 @@ from lgbfscotland.indicator import indicator
 from lgbfscotland.utils_example_data import example_lgbf_metadata, example_lgbf_data
 from lgbfscotland.utils_general import clean_id
 from shiny import ui, module, render, req
-from htmltools import tags
 from loguru import logger
+from faicons import icon_svg as icon
 
 
 class indicator_area:
@@ -75,9 +75,23 @@ class indicator_area:
     @module.ui
     def mod_ui(object):
         authorities = [i.authority() for i in object.data]
-        return ui.div(
+        return ui.nav_panel(
+            object.id,
             ui.card(
-                ui.card_header(object.id),
+                ui.card_header(
+                    object.id,
+                    ui.popover(
+                        ui.span("Settings ", icon("circle-question")),
+                        """
+                        Indicator data for a selected local authority is visualised as
+                        a series of interactive line plots. Data are stratified
+                        into categories; 'Performance' 'Financial' and 'Satisfaction', which
+                        are displayed in independent boxes. Each box contains a
+                        menu allowing navigation between different indicator data sets.
+                        """,
+                        title="Info",
+                    ),
+                ),
                 ui.input_select(
                     id="select_authority",
                     label="Select authority",
@@ -85,12 +99,12 @@ class indicator_area:
                     selected=authorities[0],
                 ),
                 ui.output_ui("indicator_boxes"),
-            )
+            ),
         )
 
     @staticmethod
     @module.server
-    def mod_server(input, output, session, object):
+    def mod_server(input, output, session, object, is_dark):
         @render.ui
         def indicator_boxes():
             req(input.select_authority)
@@ -113,7 +127,7 @@ class indicator_area:
                         title=key,
                     )
                 ]
-                [ind.mod_server(clean_id(ind.id()), ind) for ind in indicators]
+                [ind.mod_server(clean_id(ind.id()), ind, is_dark) for ind in indicators]
             return ui.div(*output)
 
     def _split_by_category(self, authority):

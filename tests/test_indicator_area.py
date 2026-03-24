@@ -2,7 +2,7 @@ import pytest
 from lgbfscotland.indicator import indicator
 from lgbfscotland.indicator_area import indicator_area
 from lgbfscotland.utils_example_data import example_lgbf_metadata, example_lgbf_data
-from copy import deepcopy
+from shiny import ui
 
 metadata = example_lgbf_metadata()
 data = example_lgbf_data()
@@ -45,6 +45,12 @@ def test_indicator_area_properties():
     assert "indicator area objects must only contain indicator objects" in str(
         err.value
     )
+
+
+def test_indicator_area_modules():
+    x = indicator_area.example_indicator_area()
+    output = x.mod_ui("indicator", x)
+    assert isinstance(output, ui._navs.NavPanel)
 
 
 def test_example_indicator_area(snapshot):

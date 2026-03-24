@@ -9,5 +9,5 @@ def clean_id(x: str):
     return x.strip("_")
 
 
-def wrap_text(x):
-    return "<br>".join(textwrap.wrap(x, width=40))
+def wrap_text(x, width=40):
+    return "<br>".join(textwrap.wrap(x, width=width))

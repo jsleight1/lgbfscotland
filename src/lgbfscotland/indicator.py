@@ -7,7 +7,7 @@ from lgbfscotland.utils_example_data import example_lgbf_metadata, example_lgbf_
 from lgbfscotland.utils_general import wrap_text
 from shiny import ui, module, render
 from shinywidgets import output_widget, render_widget
-from htmltools import tags
+from loguru import logger
 
 
 class indicator:
@@ -137,18 +137,18 @@ class indicator:
             case _:
                 raise Exception(type + " plot type not implemented")
 
-    def _indicator_plot(self, **kwargs):
+    def _indicator_plot(self, is_dark=False, **kwargs):
         data = self._indicator_plot_data()
         fig = px.line(data, x="Year", y="Metric", color="Category")
-        fig = fig.update_layout(hovermode="x unified")
         fig = fig.update_xaxes(type="category")
         fig = fig.update_yaxes(title_text=wrap_text(self.title()))
         fig.update_layout(
             legend=dict(orientation="h", yanchor="top", y=-0.5, xanchor="center", x=0.5)
         )
+        fig = self._update_fig(fig=fig, is_dark=is_dark)
         return fig
 
-    def _numerator_denominator_plot(self, **kwargs):
+    def _numerator_denominator_plot(self, is_dark=False, **kwargs):
         data = self._numerator_denominator_plot_data()
         num_title = pd.unique(data["Indicators_Information_Numerator_Title"]).tolist()[
             0
@@ -179,6 +179,34 @@ class indicator:
         fig = fig.update_layout(hovermode="x unified")
         fig.update_layout(
             legend=dict(orientation="h", yanchor="top", y=-0.5, xanchor="center", x=0.5)
+        )
+        fig = self._update_fig(fig=fig, is_dark=is_dark)
+        return fig
+
+    @staticmethod
+    def _update_fig(fig, is_dark=False):
+        template = "plotly_dark" if is_dark else "plotly_white"
+        text_color = "#f8f9fa" if is_dark else "#212529"
+        hover_bg = "#343a40" if is_dark else "#ffffff"
+        fig = fig.update_xaxes(
+            tickfont=dict(color=text_color),
+            linecolor=text_color,
+        )
+        fig = fig.update_yaxes(
+            tickfont=dict(color=text_color),
+            linecolor=text_color,
+        )
+        fig = fig.update_layout(
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(0,0,0,0)",
+            hovermode="x unified",
+            font=dict(color=text_color),
+            title=dict(font=dict(color=text_color)),
+            legend_title=dict(font=dict(color=text_color)),
+            hoverlabel=dict(
+                bgcolor=hover_bg,
+                font_color=text_color,
+            ),
         )
         return fig
 
@@ -219,7 +247,7 @@ class indicator:
     def mod_ui(object):
         return ui.nav_panel(
             object.title(),
-            ui.card(
+            ui.div(
                 ui.card_header(object.title()),
                 ui.output_ui("indicator_ui"),
                 min_height="500px",
@@ -228,14 +256,18 @@ class indicator:
 
     @staticmethod
     @module.server
-    def mod_server(input, output, session, object):
+    def mod_server(input, output, session, object, is_dark):
         @render_widget
         def indicator_plot():
-            return object.plot(type="indicator")
+            logger.info("Creating indicator plot")
+            return object.plot(type="indicator", is_dark=is_dark() == "dark")
 
         @render_widget
         def numerator_denominator_plot():
-            return object.plot(type="numerator_denominator")
+            logger.info("Creating numerator denominator indicator plot")
+            return object.plot(
+                type="numerator_denominator", is_dark=is_dark() == "dark"
+            )
 
         @render.ui
         def indicator_ui():

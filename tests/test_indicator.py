@@ -3,6 +3,8 @@ from lgbfscotland.indicator import indicator
 from lgbfscotland.utils_example_data import example_lgbf_metadata, example_lgbf_data
 from copy import deepcopy
 import pandas as pd
+import plotly.graph_objects as go
+from shiny import ui
 
 metadata = example_lgbf_metadata()
 data = example_lgbf_data()
@@ -64,13 +66,17 @@ def test_indicator_validation():
     assert "Missing columns" in str(err.value)
 
 
-def test_plot_indicator(snapshot):
+def test_plot_indicator():
     x = indicator.example_indicator()
     with pytest.raises(TypeError) as err:
         x.plot()
     assert "indicator.plot() missing 1 required positional argument: 'type'" in str(
         err.value
     )
+    output = x.plot(type="indicator")
+    assert isinstance(output, go.Figure)
+    output = x.plot(type="numerator_denominator")
+    assert isinstance(output, go.Figure)
 
 
 def test_indicator_properties():
@@ -78,6 +84,12 @@ def test_indicator_properties():
     with pytest.raises(AssertionError) as err:
         output.data = 1
     assert "data is not DataFrame" in str(err.value)
+
+
+def test_indicator_modules():
+    x = indicator.example_indicator()
+    output = x.mod_ui("indicator", x)
+    assert isinstance(output, ui._navs.NavPanel)
 
 
 def test_example_indicator(snapshot):

@@ -1,4 +1,3 @@
-from shiny import App
-from lgbfscotland.lgbfscotland import app_ui, server
+from lgbfscotland.lgbfscotland import lgbfscotland
 
-app = App(ui=app_ui, server=server)
+app = lgbfscotland()
