@@ -13,10 +13,18 @@ from lgbfscotland.mod_about import mod_about_ui
 from loguru import logger
 from faicons import icon_svg as icon
 from shiny import ui, App
-from pathlib import Path
+
+"""
+Launch lgbfscotland shiny app.
+
+Parameters
+----------
+**kwargs
+    Passed to shiny.App.
+"""
 
 
-def lgbfscotland():
+def lgbfscotland(**kwargs):
     logger.info(f"Running lgbfscotland in {settings.type} mode")
     lgbf_data = load_lgbf_data(settings)
     indicator_areas = create_indicator_areas(lgbf_data)
@@ -54,8 +62,7 @@ def lgbfscotland():
             "indicator_areas", data=indicator_areas, is_dark=input.mode
         )
 
-    www_dir = Path(__file__).parent / "www"
-    return App(ui=app_ui, server=server, static_assets=www_dir)
+    return App(ui=app_ui, server=server, **kwargs)
 
 
 def create_indicator_areas(x: pd.DataFrame):

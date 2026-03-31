@@ -10,7 +10,7 @@ def mod_about_ui():
             ui.card_header("About the author"),
             ui.layout_columns(
                 ui.div(
-                    ui.img(src="author_pic.jpg", width="600px"),
+                    ui.img(src="author_pic.jpg", width="400px"),
                     class_="d-flex justify-content-center",
                 ),
                 ui.div(
@@ -62,6 +62,16 @@ def mod_about_ui():
                         href="https://github.com/jsleight1/lgbfscotland",
                         target="_blank",
                     ),
+                    """
+                    This application is deployed using the Azure container app
+                    platform which uses a docker container that is published on
+                    """,
+                    tags.a(
+                        " docker.io",
+                        href="https://hub.docker.com/r/jsleight1/lgbfscotland/",
+                        target="_blank",
+                    ),
+                    ".",
                 ),
                 class_="justify-content-center",
             ),

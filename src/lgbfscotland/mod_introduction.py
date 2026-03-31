@@ -67,7 +67,7 @@ def mod_introduction_ui(data):
                 and 'LGBF Data Table Real' data sets avaiable for download from the
                 """,
                 tags.a(
-                    "'Spatial Hub'",
+                    "Spatial Hub",
                     href="https://data.spatialhub.scot/dataset/local_government_benchmarking_framework-is",
                     target="_blank",
                 ),
