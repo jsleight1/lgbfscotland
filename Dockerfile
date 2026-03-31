@@ -10,6 +10,6 @@ RUN uv sync --locked --all-extras --dev
 
 ENV PATH="/app/.venv/bin:$PATH"
 
-EXPOSE 8000
+EXPOSE 9003
 
-CMD ["shiny", "run", "app.py", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["shiny", "run", "app.py", "--host", "0.0.0.0", "--port", "9003"]
