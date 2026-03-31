@@ -139,9 +139,15 @@ class indicator:
 
     def _indicator_plot(self, is_dark=False, **kwargs):
         data = self._indicator_plot_data()
+        unit = pd.unique(data["Indicators_Information_Unit"]).tolist()[0]
         fig = px.line(data, x="Year", y="Metric", color="Category")
         fig = fig.update_xaxes(type="category")
-        fig = fig.update_yaxes(title_text=wrap_text(self.title()))
+        fig = fig.update_yaxes(
+            title_text=wrap_text(self.title()),
+            tickformat={"Percentage": ".1%", "Percentage points": ".1%"}.get(unit, ""),
+            tickprefix={"Pounds": "£"}.get(unit, ""),
+            ticksuffix={"Tonnes": "t", "Days": "days"}.get(unit, "")
+        )
         fig.update_layout(
             legend=dict(orientation="h", yanchor="top", y=-0.5, xanchor="center", x=0.5)
         )
@@ -222,7 +228,7 @@ class indicator:
         }
         output = output.rename(columns=req_cols)[req_cols.values()]
         output = output.melt(
-            id_vars="Year",
+            id_vars=["Year", "Indicators_Information_Unit"],
             value_vars=["Local Authority", "Family Group", "Scotland"],
             var_name="Category",
             value_name="Metric",
