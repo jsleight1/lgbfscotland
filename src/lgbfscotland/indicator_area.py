@@ -197,7 +197,7 @@ class indicator_area:
         )
         grps = ["Indicators_Information_Code", "LA_Information_LocalAuthority"]
         output = indicator_area(
-            data=[indicator(group) for _, group in indicator_data.groupby(grps)],
+            x=[indicator(group) for _, group in indicator_data.groupby(grps)],
             id="service_area",
         )
         return output

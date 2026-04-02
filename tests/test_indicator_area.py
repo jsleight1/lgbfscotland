@@ -12,7 +12,7 @@ indicators = [indicator(group) for _, group in indicator_data.groupby(grps)]
 
 
 def test_indicator_area_generation(snapshot):
-    output = indicator_area(data=indicators, id="id")
+    output = indicator_area(x=indicators, id="id")
     assert isinstance(output, indicator_area)
     assert output.id == "id"
     assert all([isinstance(i, indicator) for i in output.data])
@@ -22,7 +22,7 @@ def test_indicator_area_generation(snapshot):
 
 def test_indicator_area_validation():
     with pytest.raises(AssertionError) as err:
-        indicator_area(data=indicators, id=1)
+        indicator_area(x=indicators, id=1)
     assert "id must be a string" in str(err.value)
 
     with pytest.raises(AssertionError) as err:
