@@ -1,0 +1,33 @@
+on:
+  push:
+    branches: [development]
+
+name: Deploy documentation
+
+permissions: read-all
+
+jobs:
+  deploy_documentation:
+    runs-on: ubuntu-latest
+    name: ${{ matrix.config.os}} ${{matrix.config.python}}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {os: ubuntu-latest, python: '3.14'}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install uv and set the Python version
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: ${{ matrix.config.python }}
+
+      - name: Install the project
+        run: uv sync --locked --all-extras --dev
+
+      - name: Deploy to GitHub Pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          uv run mkdocs gh-deploy --force

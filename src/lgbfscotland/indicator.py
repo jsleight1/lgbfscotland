@@ -11,7 +11,43 @@ from loguru import logger
 
 
 class indicator:
+    """
+    Title
+    -----
+    Indicator data object
+
+    Description
+    -----------
+    Indicator objects contain a DataFrame object storing data for a single
+    indicator in a single local authority.
+
+    Examples
+    --------
+    >>> data = example_lgbf_data().merge(
+    >>>   example_lgbf_metadata(),
+    >>>   on="Indicators_Information_Code",
+    >>>   how="inner"
+    >>> )
+    >>> data = data[(data["Indicators_Information_Code"] == "SW01") & (data["LA_Information_LocalAuthority"] == "Aberdeen City")]
+    >>>
+    >>> output = indicator(x=data)
+    >>> output
+    >>> output.data
+    >>> output.id()
+    >>> output.title()
+    >>> output.authority()
+    >>> output.category()
+    >>> output.plot(type="indicator")
+    >>> output.plot(type="numerator_denominator")
+    """
     def __init__(self, x):
+        """
+        Parameters
+        ----------
+        x: pandas.core.frame.DataFrame
+            A DataFrame of data for single indicator dataset in single local
+            authority.
+        """
         self._data = deepcopy(x)
         self._validate()
 
@@ -41,7 +77,10 @@ class indicator:
         return self._data
 
     def _set_data(self, value: pd.DataFrame):
-        """Set data attribute for indicator object.
+        """
+        Title
+        -----
+        Set data attribute for indicator object.
 
         Parameters
         ----------
@@ -87,24 +126,32 @@ class indicator:
 
     def id(self):
         """
+        Title
+        -----
         Get indicator id.
         """
         return self._assert_unique_col("Indicators_Information_Code")
 
     def title(self):
         """
+        Title
+        -----
         Get indicator title.
         """
         return self._assert_unique_col("Indicators_Information_Title")
 
     def authority(self):
         """
+        Title
+        -----
         Get indicator authority.
         """
         return self._assert_unique_col("LA_Information_LocalAuthority")
 
     def category(self):
         """
+        Title
+        -----
         Get indicator category.
         """
         return self._assert_unique_col("Indicators_Information_Category")
@@ -115,7 +162,10 @@ class indicator:
         return output[0]
 
     def plot(self, type, **kwargs):
-        """Plot indicator object.
+        """
+        Title
+        -----
+        Plot indicator object.
 
         Parameters
         ----------
@@ -127,7 +177,7 @@ class indicator:
         Examples
         ----------
         >>> x = indicator.example_indicator()
-        >>> x.plot("indicator")
+        >>> x.plot(type="indicator")
         """
         match type:
             case "indicator":
@@ -297,7 +347,10 @@ class indicator:
 
     @staticmethod
     def example_indicator():
-        """Generate example indicator object
+        """
+        Title
+        -----
+        Generate example indicator object
 
         Returns
         ----------

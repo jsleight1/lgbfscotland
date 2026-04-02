@@ -80,7 +80,7 @@ def mod_about_ui():
                     ),
                     tags.p(
                         """
-                        All data used to produce this data is available from the
+                        All data used in this application is available from the
                         Local Government Benchmarking Framework
                         """,
                         tags.a(

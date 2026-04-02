@@ -14,17 +14,15 @@ from loguru import logger
 from faicons import icon_svg as icon
 from shiny import ui, App
 
-"""
-Launch lgbfscotland shiny app.
-
-Parameters
-----------
-**kwargs
-    Passed to shiny.App.
-"""
-
-
 def lgbfscotland(**kwargs):
+    """
+    Launch lgbfscotland shiny app.
+
+    Parameters
+    ----------
+    **kwargs
+        Passed to shiny.App.
+    """
     logger.info(f"Running lgbfscotland in {settings.type} mode")
     lgbf_data = load_lgbf_data(settings)
     indicator_areas = create_indicator_areas(lgbf_data)

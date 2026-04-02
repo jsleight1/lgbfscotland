@@ -2,6 +2,15 @@ import pandas as pd
 
 
 def example_lgbf_metadata():
+    """
+    Title
+    -----
+    Create example lgbf metadata.
+
+    Returns
+    -------
+        Pandas data.frame with metadata for two indicators.
+    """
     return pd.DataFrame(
         {
             "Indicators_Information_Code": ["C&L02", "SW01"],
@@ -28,6 +37,15 @@ def example_lgbf_metadata():
 
 
 def example_lgbf_data():
+    """
+    Title
+    -----
+    Create example lgbf data.
+
+    Returns
+    -------
+        Pandas data.frame with metric data for two indicators.
+    """
     return pd.DataFrame(
         {
             "Indicators_Information_Code": [

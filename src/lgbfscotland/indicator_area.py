@@ -10,8 +10,34 @@ from htmltools import tags
 
 
 class indicator_area:
-    def __init__(self, data, id):
-        self._data = deepcopy(data)
+    """
+    Title
+    -----
+    Indicator area object
+
+    Description
+    -----------
+    Indicator area objects contain a list of Indicator objects for a single
+    indicator service area in a single local authority.
+
+    Examples
+    --------
+    >>> data = indicator.example_indicator()
+    >>> output = indicator_area(data = [data], id = "area")
+    >>> output
+    >>> output.data
+    >>> output.id
+    """
+    def __init__(self, x, id):
+        """
+        Parameters
+        ----------
+        x: list
+            A list of indicator objects.
+        id: str
+            A string Id for indicator area object.
+        """
+        self._data = deepcopy(x)
         self._id = id
         self._validate()
 
@@ -35,7 +61,10 @@ class indicator_area:
         return self._data
 
     def _set_data(self, value: list):
-        """Set data attribute for indicator object.
+        """
+        Title
+        -----
+        Set data attribute for indicator object.
 
         Parameters
         ----------
@@ -54,7 +83,10 @@ class indicator_area:
         return self._id
 
     def _set_id(self, value: str):
-        """Set id attribute for indicator area object.
+        """
+        Title
+        -----
+        Set id attribute for indicator area object.
 
         Parameters
         ----------
@@ -100,14 +132,14 @@ class indicator_area:
                     ),
                     """
                      describes the process of how these metrics have been
-                    developed and how councils have been organised into'family
+                    developed and how councils have been organised into 'family
                     groups'. This essentially means that similar councils in
                     terms of levels of deprivation and population are compared
                     to each other. These interactive line plots present each
                     indicator for the selected local authority alongside the
                     indicator value summarisied by council family group and
-                    across Scotland. In addition, the values used to derive (if
-                    applicable) the indicator metric are presented.
+                    nationally across Scotland. In addition, the values used to
+                    derive (if applicable) the indicator metric are presented.
                     """,
                 ),
                 ui.input_select(
