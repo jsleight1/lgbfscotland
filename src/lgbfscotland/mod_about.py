@@ -47,7 +47,7 @@ def mod_about_ui():
                         class_="justify-content-center",
                     ),
                 ),
-                min_height="350px"
+                min_height="350px",
             ),
             ui.card(
                 ui.card_header("About the package"),
@@ -56,7 +56,9 @@ def mod_about_ui():
                         """
                         LGBFScotland is structured as
                         """,
-                        tags.a(" uv ", href="https://docs.astral.sh/uv/", target="_blank"),
+                        tags.a(
+                            " uv ", href="https://docs.astral.sh/uv/", target="_blank"
+                        ),
                         """
                         python package hosted on
                         """,
@@ -101,7 +103,7 @@ def mod_about_ui():
                     ),
                     class_="justify-content-center",
                 ),
-                min_height="200px"
+                min_height="200px",
             ),
             ui.card(
                 ui.card_header("Disclaimer"),
@@ -116,9 +118,9 @@ def mod_about_ui():
                     """,
                     class_="disclaimer",
                 ),
-                min_height="150px"
+                min_height="150px",
             ),
             class_="overflow-auto",
-            style="height: 100%;"
-        )
+            style="height: 100%;",
+        ),
     )
