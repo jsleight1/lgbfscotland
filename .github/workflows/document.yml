@@ -7,11 +7,11 @@ on:
 
 name: Deploy documentation
 
-permissions: read-all
-
 jobs:
   deploy_documentation:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     name: ${{ matrix.config.os}} ${{matrix.config.python}}
     strategy:
       fail-fast: false
