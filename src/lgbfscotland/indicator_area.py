@@ -3,9 +3,10 @@ from copy import deepcopy
 from lgbfscotland.indicator import indicator
 from lgbfscotland.utils_example_data import example_lgbf_metadata, example_lgbf_data
 from lgbfscotland.utils_general import clean_id
-from shiny import ui, module, render, req
-from loguru import logger
+from shiny import ui, module, req, render
 from faicons import icon_svg as icon
+from loguru import logger
+from htmltools import tags
 
 
 class indicator_area:
@@ -78,19 +79,36 @@ class indicator_area:
         return ui.nav_panel(
             object.id,
             ui.card(
-                ui.card_header(
-                    object.id,
-                    ui.popover(
-                        ui.span("Settings ", icon("circle-question")),
-                        """
-                        Indicator data for a selected local authority is visualised as
-                        a series of interactive line plots. Data are stratified
-                        into categories; 'Performance' 'Financial' and 'Satisfaction', which
-                        are displayed in independent boxes. Each box contains a
-                        menu allowing navigation between different indicator data sets.
-                        """,
-                        title="Info",
+                ui.card_header(object.id),
+                tags.h6(
+                    """
+                    Indicator data for a selected local authority is
+                    visualised as a series of interactive line plots.
+                    Data are stratified into categories; 'Performance'
+                    'Financial' and 'Satisfaction', which are displayed
+                    in independent boxes. Each box contains a menu
+                    allowing navigation between different indicator data
+                    sets.
+                    """
+                ),
+                tags.h6(
+                    "The ",
+                    ui.a(
+                        "LGBF",
+                        href="https://www.improvementservice.org.uk/benchmarking/home",
+                        target="_blank",
                     ),
+                    """
+                     describes the process of how these metrics have been
+                    developed and how councils have been organised into'family
+                    groups'. This essentially means that similar councils in
+                    terms of levels of deprivation and population are compared
+                    to each other. These interactive line plots present each
+                    indicator for the selected local authority alongside the
+                    indicator value summarisied by council family group and
+                    across Scotland. In addition, the values used to derive (if
+                    applicable) the indicator metric are presented.
+                    """,
                 ),
                 ui.input_select(
                     id="select_authority",

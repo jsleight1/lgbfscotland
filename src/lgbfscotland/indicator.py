@@ -146,7 +146,7 @@ class indicator:
             title_text=wrap_text(self.title()),
             tickformat={"Percentage": ".1%", "Percentage points": ".1%"}.get(unit, ""),
             tickprefix={"Pounds": "£"}.get(unit, ""),
-            ticksuffix={"Tonnes": "t", "Days": "days"}.get(unit, "")
+            ticksuffix={"Tonnes": "t", "Days": "days"}.get(unit, ""),
         )
         fig.update_layout(
             legend=dict(orientation="h", yanchor="top", y=-0.5, xanchor="center", x=0.5)
