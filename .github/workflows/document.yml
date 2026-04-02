@@ -1,6 +1,9 @@
 on:
   push:
     branches: [development]
+  release:
+    types: [published]
+  workflow_dispatch:
 
 name: Deploy documentation
 
