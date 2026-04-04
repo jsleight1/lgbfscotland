@@ -89,8 +89,9 @@ def mod_about_ui():
                             target="_blank",
                         ),
                         """
-                        . Specifically data was download from the 'LGBF indicators information'
-                        and 'LGBF Data Table Real' data sets avaiable for download from the
+                        . Specifically the 'LGBF indicators information' and
+                        'LGBF Data Table Real' data sets were downloaded from
+                        the
                         """,
                         tags.a(
                             "Spatial Hub",
@@ -98,7 +99,8 @@ def mod_about_ui():
                             target="_blank",
                         ),
                         """
-                        which is licensed under a UK Open Government Licence (OGL) license.
+                        These data sets are licensed under a UK Open Government
+                        Licence (OGL) license.
                         """,
                     ),
                     class_="justify-content-center",
@@ -109,12 +111,14 @@ def mod_about_ui():
                 ui.card_header("Disclaimer"),
                 tags.h6(
                     """
-                    This python package is licensed using GNU General Public License and contains
-                    data licensed under the Open Government License (OGL). This application
-                    is primarily a hobby project, therefore the author accepts no liability and
-                    provides no guarantees related to the functionality of the application and
-                    accuracy of the data. The original published data sets should
-                    always be consulted when using this application.
+                    This python package is licensed using GNU General Public
+                    License and contains data licensed under the UK Open
+                    Government License (OGL). This application is primarily a
+                    hobby project, therefore the author accepts no liability and
+                    provides no guarantees related to the functionality of the
+                    application and accuracy of the data. The original published
+                    data sets should always be consulted when using this
+                    application.
                     """,
                     class_="disclaimer",
                 ),

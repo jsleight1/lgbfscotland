@@ -139,7 +139,7 @@ class indicator_area:
                     indicator for the selected local authority alongside the
                     indicator value summarisied by council family group and
                     nationally across Scotland. In addition, the values used to
-                    derive (if applicable) the indicator metric are presented.
+                    derive the indicator metric are presented (if applicable).
                     """,
                 ),
                 ui.input_select(
