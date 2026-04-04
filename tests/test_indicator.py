@@ -73,10 +73,28 @@ def test_plot_indicator():
     assert "indicator.plot() missing 1 required positional argument: 'type'" in str(
         err.value
     )
+    with pytest.raises(Exception) as err:
+        x.plot(type="t")
+    assert "t plot type not implemented" == str(err.value)
     output = x.plot(type="indicator")
     assert isinstance(output, go.Figure)
     output = x.plot(type="numerator_denominator")
     assert isinstance(output, go.Figure)
+
+
+def test_summary_indicator(snapshot):
+    x = indicator.example_indicator()
+    with pytest.raises(TypeError) as err:
+        x.summary()
+    assert "indicator.summary() missing 1 required positional argument: 'type'" in str(
+        err.value
+    )
+    with pytest.raises(Exception) as err:
+        x.summary(type="t")
+    assert "t summary type not implemented" == str(err.value)
+    output = x.summary(type="indicator")
+    assert isinstance(output, pd.DataFrame)
+    snapshot.assert_match(str(output), "indicator_summary.txt")
 
 
 def test_indicator_properties():

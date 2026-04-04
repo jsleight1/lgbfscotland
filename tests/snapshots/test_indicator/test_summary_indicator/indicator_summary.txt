@@ -1,0 +1,5 @@
+  Indicators Code  ... Family group indicator denominator value
+4            SW01  ...                                 548521.2
+5            SW01  ...                                 550521.9
+
+[2 rows x 11 columns]

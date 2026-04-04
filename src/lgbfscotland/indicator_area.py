@@ -28,6 +28,7 @@ class indicator_area:
     >>> output.data
     >>> output.id
     """
+
     def __init__(self, x, id):
         """
         Parameters

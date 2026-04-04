@@ -40,6 +40,7 @@ class indicator:
     >>> output.plot(type="indicator")
     >>> output.plot(type="numerator_denominator")
     """
+
     def __init__(self, x):
         """
         Parameters
@@ -185,7 +186,7 @@ class indicator:
             case "numerator_denominator":
                 return self._numerator_denominator_plot(**kwargs)
             case _:
-                raise Exception(type + " plot type not implemented")
+                raise Exception(f"{type} plot type not implemented")
 
     def _indicator_plot(self, is_dark=False, **kwargs):
         data = self._indicator_plot_data()
@@ -298,6 +299,46 @@ class indicator:
         ]
         return output[req_cols]
 
+    def summary(self, type, **kwargs):
+        """
+        Title
+        -----
+        Summarise indicator object.
+
+        Parameters
+        ----------
+        type: str
+            Type of summary. Options are "indicator".
+        **kwargs:
+            Passed to summary methods.
+
+        Examples
+        ----------
+        >>> x = indicator.example_indicator()
+        >>> x.summary(type="indicator")
+        """
+        match type:
+            case "indicator":
+                return self._indicator_summary(**kwargs)
+            case _:
+                raise Exception(f"{type} summary type not implemented")
+
+    def _indicator_summary(self):
+        cols = {
+            "Indicators_Information_Code": "Indicators Code",
+            "LA_Data_LGBF_Year": "Year",
+            "LA_Data_LA_IndicatorReal": "Indicator value",
+            "LA_Data_LA_Numerator_real": "Indicator numerator value",
+            "LA_Data_LA_Den_Real": "Indicator denominator value",
+            "Scotland_Data_Scotland_Indicator_Real": "Scotland indicator value",
+            "Scotland_Data_Scotland_Num_Real": "Scotland indicator numerator value",
+            "Scotland_Data_Scotland_Den_Real": "Scotland indicator denominator value",
+            "FG_Data_FG_Avg_Indicator_Real": "Family group indicator value",
+            "FG_Data_FG_Avg_Num_Real": "Family group indicator numerator value",
+            "FG_Data_FG_Avg_Den_Real": "Family group indicator denominator value",
+        }
+        return self.data.rename(columns=cols)[cols.values()]
+
     @staticmethod
     @module.ui
     def mod_ui(object):
@@ -325,6 +366,19 @@ class indicator:
                 type="numerator_denominator", is_dark=is_dark() == "dark"
             )
 
+        @render.data_frame
+        def indicator_table():
+            logger.info("Creating indicator summary")
+            return render.DataTable(
+                object.summary(type="indicator"), filters=True, width="100%"
+            )
+
+        @render.download(filename=f"{object.title()}.csv")
+        def download_indicator_table():
+            logger.info("Downloading indicator summary")
+            filtered_df = indicator_table.data_view()
+            yield filtered_df.to_csv(index=False)
+
         @render.ui
         def indicator_ui():
             num_den_widget = None
@@ -332,11 +386,23 @@ class indicator:
             if object._contains_num_den():
                 num_den_widget = output_widget("numerator_denominator_plot")
                 col_widths = [6, 6]
-
-            return ui.layout_columns(
-                output_widget("indicator_plot"),
-                num_den_widget,
-                col_widths=col_widths,
+            return ui.navset_tab(
+                ui.nav_panel(
+                    "Plot",
+                    ui.layout_columns(
+                        output_widget("indicator_plot"),
+                        num_den_widget,
+                        col_widths=col_widths,
+                    ),
+                ),
+                ui.nav_panel(
+                    "Table",
+                    ui.output_data_frame("indicator_table"),
+                    ui.download_button(
+                        "download_indicator_table",
+                        "Download CSV",
+                    ),
+                ),
             )
 
     def _contains_num_den(self):

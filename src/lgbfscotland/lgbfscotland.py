@@ -14,6 +14,7 @@ from loguru import logger
 from faicons import icon_svg as icon
 from shiny import ui, App
 
+
 def lgbfscotland(**kwargs):
     """
     Launch lgbfscotland shiny app.
