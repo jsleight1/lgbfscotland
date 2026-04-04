@@ -1,0 +1,17 @@
+name: Tag
+on:
+  push:
+    branches: [main]
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create Tag
+        run: |
+          VERSION=$(uv version)
+          git tag "v$VERSION"
+          git push origin "v$VERSION"
