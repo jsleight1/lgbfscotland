@@ -17,8 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Install rsync
-        run: |
-          apt-get update && apt-get install -y rsync
+        run: apt-get update && apt-get install -y rsync
       - name: Install the project
         run: uv sync --locked --all-extras --dev
       - name: Build site

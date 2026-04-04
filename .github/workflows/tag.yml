@@ -7,6 +7,8 @@ name: Tag
 jobs:
   tag:
     runs-on: ubuntu-latest
+    container:
+      image: docker.io/jsleight1/lgbfscotland:latest
     permissions:
       contents: write
     steps:
