@@ -1,7 +1,8 @@
-name: Tag
 on:
   push:
     branches: [main]
+
+name: Tag
 
 jobs:
   tag:

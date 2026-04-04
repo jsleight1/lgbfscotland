@@ -10,28 +10,16 @@ name: Deploy documentation
 jobs:
   deploy_documentation:
     runs-on: ubuntu-latest
+    container:
+      image: docker.io/jsleight1/lgbfscotland:development
     permissions:
       contents: write
-    name: ${{ matrix.config.os}} ${{matrix.config.python}}
-    strategy:
-      fail-fast: false
-      matrix:
-        config:
-          - {os: ubuntu-latest, python: '3.14'}
     steps:
       - uses: actions/checkout@v6
-
-      - name: Install uv and set the Python version
-        uses: astral-sh/setup-uv@v7
-        with:
-          python-version: ${{ matrix.config.python }}
-
       - name: Install the project
         run: uv sync --locked --all-extras --dev
-
       - name: Build site
         run: uv run mkdocs build
-
       - name: Deploy to GitHub pages 🚀
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@v4.5.0

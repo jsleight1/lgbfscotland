@@ -5,29 +5,14 @@ on:
 
 name: Test package
 
-permissions: read-all
-
 jobs:
   test:
-    runs-on: ${{ matrix.config.os }}
-    name: ${{ matrix.config.os}} ${{matrix.config.python}}
-    strategy:
-      fail-fast: false
-      matrix:
-        config:
-          - {os: ubuntu-latest, python: '3.14'}
-          - {os: macos-latest, python: '3.14'}
-          - {os: windows-latest, python: '3.14'}
+    runs-on: ubuntu-latest
+    container:
+      image: docker.io/jsleight1/lgbfscotland:development
     steps:
       - uses: actions/checkout@v6
-
-      - name: Install uv and set the Python version
-        uses: astral-sh/setup-uv@v7
-        with:
-          python-version: ${{ matrix.config.python }}
-
       - name: Install the project
         run: uv sync --locked --all-extras --dev
-
       - name: Run tests
         run: uv run pytest

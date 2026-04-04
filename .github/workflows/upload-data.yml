@@ -5,29 +5,15 @@ on:
 
 name: Upload data
 
-permissions: read-all
-
 jobs:
   upload-data:
-    runs-on: ${{ matrix.config.os }}
-    name: ${{ matrix.config.os}} ${{matrix.config.python}}
-    strategy:
-      fail-fast: false
-      matrix:
-        config:
-          - {os: ubuntu-latest, python: '3.14'}
-
+    runs-on: ubuntu-latest
+    container:
+      image: docker.io/jsleight1/lgbfscotland:development
     steps:
       - uses: actions/checkout@v6
-
-      - name: Install uv and set the Python version
-        uses: astral-sh/setup-uv@v7
-        with:
-          python-version: ${{ matrix.config.python }}
-
       - name: Install the project
         run: uv sync --locked --all-extras --dev
-
       - name: Upload data to Azure blob
         env:
           ENV_FOR_DYNACONF: production
