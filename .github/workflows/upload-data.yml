@@ -1,7 +1,11 @@
+# on:
+#   schedule:
+#     # Upload data to Azure blob every 6 months
+#     - cron: "0 0 1 */6 *"
+
 on:
-  schedule:
-    # Upload data to Azure blob every 6 months
-    - cron: "0 0 1 */6 *"
+  push:
+    branches: [development]
 
 name: Upload data
 
@@ -9,7 +13,7 @@ jobs:
   upload-data:
     runs-on: ubuntu-latest
     container:
-      image: docker.io/jsleight1/lgbfscotland:development
+      image: docker.io/jsleight1/lgbfscotland:latest
     steps:
       - uses: actions/checkout@v6
       - name: Install the project

@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [development]
+    branches: [main]
   release:
     types: [published]
   workflow_dispatch:
@@ -11,7 +11,7 @@ jobs:
   deploy_documentation:
     runs-on: ubuntu-latest
     container:
-      image: docker.io/jsleight1/lgbfscotland:development
+      image: docker.io/jsleight1/lgbfscotland:latest
     permissions:
       contents: write
     steps:
