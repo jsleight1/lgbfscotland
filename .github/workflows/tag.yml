@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [development]
+    branches: [main]
 
 name: Tag
 
@@ -13,9 +13,8 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - name: Create Tag
+      - name: Create and push tag
         run: |
-          pwd
           git config --global --add safe.directory /__w/lgbfscotland/lgbfscotland
           VERSION=$(uv version | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
           git tag "v$VERSION"

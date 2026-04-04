@@ -1,6 +1,6 @@
 [project]
 name = "lgbfscotland"
-version = "1.0.1"
+version = "1.0.0"
 description = "Python shiny application for presenting Scottish local government benchmarking framework data"
 readme = "README.md"
 license = "GPL-3.0-only"
