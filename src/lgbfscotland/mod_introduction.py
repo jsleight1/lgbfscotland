@@ -24,8 +24,8 @@ def mod_introduction_ui(data):
                 Indicators are categorised into indicator service areas, which
                 can be viewed using the 'Indicator Areas' dropdown. Each section
                 contains a series of interactive plots visualising each
-                indicator and values used to derive this indicator (if
-                applicable).
+                indicator and, if applicable, values used to derive this
+                indicator.
                 """
             ),
             max_height="300px",

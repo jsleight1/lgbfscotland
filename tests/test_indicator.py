@@ -95,6 +95,9 @@ def test_summary_indicator(snapshot):
     output = x.summary(type="indicator")
     assert isinstance(output, pd.DataFrame)
     snapshot.assert_match(str(output), "indicator_summary.txt")
+    output = x.summary(type="statistical_comparisons")
+    assert isinstance(output, pd.DataFrame)
+    snapshot.assert_match(str(output), "indicator_statistical_comaparisons.txt")
 
 
 def test_indicator_properties():

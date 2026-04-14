@@ -8,6 +8,9 @@ from lgbfscotland.utils_general import wrap_text
 from shiny import ui, module, render
 from shinywidgets import output_widget, render_widget
 from loguru import logger
+from scipy.stats import mannwhitneyu
+import numpy as np
+from faicons import icon_svg as icon
 
 
 class indicator:
@@ -320,6 +323,8 @@ class indicator:
         match type:
             case "indicator":
                 return self._indicator_summary(**kwargs)
+            case "statistical_comparisons":
+                return self._statistical_comparisons(**kwargs)
             case _:
                 raise Exception(f"{type} summary type not implemented")
 
@@ -338,6 +343,36 @@ class indicator:
             "FG_Data_FG_Avg_Den_Real": "Family group indicator denominator value",
         }
         return self.data.rename(columns=cols)[cols.values()]
+
+    def _statistical_comparisons(self, test="mann_whitney"):
+        comparisons = [
+            ("Indicator value", "Family group indicator value"),
+            ("Indicator value", "Scotland indicator value"),
+        ]
+        cols = {
+            "LA_Data_LGBF_Year": "Year",
+            "LA_Data_LA_IndicatorReal": "Indicator value",
+            "Scotland_Data_Scotland_Indicator_Real": "Scotland indicator value",
+            "FG_Data_FG_Avg_Indicator_Real": "Family group indicator value",
+        }
+        data = self.data.rename(columns=cols)[cols.values()]
+        match test:
+            case "mann_whitney":
+                output = [
+                    self._mann_whitney_compare(data, x, y) for x, y in comparisons
+                ]
+        return pd.DataFrame(output)
+
+    @staticmethod
+    def _mann_whitney_compare(data, x, y):
+        stat, p_val = mannwhitneyu(data[x], data[y])
+        return {
+            "Comparison": f"{x} vs {y}",
+            "Median of x": np.median(data[x]),
+            "Median of y": np.median(data[y]),
+            "U-statistic": stat,
+            "P-value (unadjusted)": p_val,
+        }
 
     @staticmethod
     @module.ui
@@ -379,6 +414,13 @@ class indicator:
             filtered_df = indicator_table.data_view()
             yield filtered_df.to_csv(index=False)
 
+        @render.data_frame
+        def statistical_comparison_table():
+            logger.info("Creating statistical comparison summary")
+            return render.DataTable(
+                object.summary(type="statistical_comparisons"), width="100%"
+            )
+
         @render.ui
         def indicator_ui():
             num_den_widget = None
@@ -389,6 +431,21 @@ class indicator:
             return ui.navset_tab(
                 ui.nav_panel(
                     "Plot",
+                    ui.card_header(
+                        ui.popover(
+                            icon("gear"),
+                            """
+                            These interactive line plots present data for the
+                            selected local authority and indicator, alongsie the
+                            local authority family group and Scotland averages
+                            (y-axis) against time (x-axis). The values used to
+                            derive the indicator metric, if applicable, are also
+                            presented.
+                            """,
+                            title="Notes",
+                            placement="right",
+                        )
+                    ),
                     ui.layout_columns(
                         output_widget("indicator_plot"),
                         num_den_widget,
@@ -396,7 +453,43 @@ class indicator:
                     ),
                 ),
                 ui.nav_panel(
-                    "Table",
+                    "Statistical comparisons",
+                    ui.card_header(
+                        ui.popover(
+                            icon("gear"),
+                            """
+                            A Mann-Whitney U rank test was used to test the
+                            hypothesis that distribution of values across the time
+                            period was statistically different between the indicator
+                            and family group or Scotland group averages
+                            respectively. A P-value < 0.05 indicates that the
+                            indicator values for the selected local authority
+                            differs from other local authorities in the family group
+                            or across Scotland respectively.
+                            """,
+                            title="Notes",
+                            placement="right",
+                        )
+                    ),
+                    ui.output_data_frame("statistical_comparison_table"),
+                ),
+                ui.nav_panel(
+                    "Download",
+                    ui.card_header(
+                        ui.popover(
+                            icon("gear"),
+                            """
+                            This interactive table presents all data
+                            for the selected local authority and indicator,
+                            alongsie the local authority family group and Scotland
+                            averages. If applicable the numerator and denominator
+                            values which were used to derive the indicator value
+                            are presented.
+                            """,
+                            title="Notes",
+                            placement="right",
+                        )
+                    ),
                     ui.output_data_frame("indicator_table"),
                     ui.download_button(
                         "download_indicator_table",

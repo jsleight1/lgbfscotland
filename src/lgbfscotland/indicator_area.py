@@ -136,11 +136,12 @@ class indicator_area:
                     developed and how councils have been organised into 'family
                     groups'. This essentially means that similar councils in
                     terms of levels of deprivation and population are compared
-                    to each other. These interactive line plots present each
-                    indicator for the selected local authority alongside the
-                    indicator value summarisied by council family group and
-                    nationally across Scotland. In addition, the values used to
-                    derive the indicator metric are presented (if applicable).
+                    to each other. Indicator data is visualised as a series of
+                    interactive plots and tables showing the indicator value for
+                    a selected local authority alongside the indicator value
+                    summarisied by council family group and nationally across
+                    Scotland. The values used to derive the indicator metric,
+                    if applicable, are also presented.
                     """,
                 ),
                 ui.input_select(
