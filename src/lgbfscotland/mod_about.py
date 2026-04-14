@@ -18,15 +18,14 @@ def mod_about_ui():
                         tags.p(
                             """
                             I am a data scientist and software developer with a
-                            background in bioinformatics and public audit. I have
-                            always had a keen interest in how tools such as Shiny
-                            can help visualise complex data sets. The aim of the
-                            LGBFScotland was to create a tool for visualising local
-                            government benchmarking framework data that may be of
-                            interest to a wider audience. A secondary aim was to
-                            provde a platform for my own personal development in
-                            creating, maintaining and deploying public Python Shiny
-                            applications.
+                            background in bioinformatics and public audit. I
+                            have always had a keen interest in how tools such as
+                            Shiny can help visualise complex data sets. The aim
+                            of the LGBFScotland was to create a tool for
+                            visualising local government benchmarking framework
+                            data. A secondary aim was to provde a platform for
+                            my own personal development in creating, maintaining
+                            and deploying public Python Shiny applications.
                             """
                         ),
                         tags.p(
@@ -99,7 +98,7 @@ def mod_about_ui():
                             target="_blank",
                         ),
                         """
-                        These data sets are licensed under a UK Open Government
+                        . These data sets are licensed under a UK Open Government
                         Licence (OGL) license.
                         """,
                     ),
