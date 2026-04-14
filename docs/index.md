@@ -5,8 +5,8 @@ local government benchmarking framework (LGBF) data.
 
 # Installation
 
-[lgbfscotland](www.lgbfscotland.co.uk) is structured as a [uv](https://docs.astral.sh/uv/) package and can be installed by cloning the repo and performing
-the following:
+lgbfscotland is structured as a [uv](https://docs.astral.sh/uv/) package and can
+be installed by cloning the repo and performing the following:
 
 ```
 pip install uv

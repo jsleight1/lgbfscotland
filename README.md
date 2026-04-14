@@ -4,13 +4,15 @@
 [![Test](https://github.com/jsleight1/lgbfscotland/actions/workflows/test.yml/badge.svg)](https://github.com/jsleight1/lgbfscotland/actions/workflows/test.yml)
 <!-- badges: end -->
 
-This repository contains a Python package for the `lgbfscotland' shiny application. This shiny application downloads, processes and presents
-local government benchmarking framework (LGBF) data.
+This repository contains a Python package for the <a
+href="https://www.lgbfscotland.co.uk/" target="_blank">lgbfscotland</a>  shiny
+application. This shiny application downloads, processes and presents local
+government benchmarking framework (LGBF) data.
 
 # Installation
 
-[lgbfscotland](www.lgbfscotland.co.uk) is structured as a [uv](https://docs.astral.sh/uv/) package and can be installed by cloning the repo and performing
-the following:
+lgbfscotland is structured as a [uv](https://docs.astral.sh/uv/) package and can
+be installed by cloning the repo and performing the following:
 
 ```
 pip install uv
