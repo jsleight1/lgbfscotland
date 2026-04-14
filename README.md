@@ -11,8 +11,8 @@ government benchmarking framework (LGBF) data.
 
 # Installation
 
-lgbfscotland is structured as a [uv](https://docs.astral.sh/uv/) package and can
-be installed by cloning the repo and performing the following:
+`lgbfscotland` is structured as a [uv](https://docs.astral.sh/uv/) package and
+can be installed by cloning the repo and performing the following:
 
 ```
 pip install uv
@@ -21,9 +21,8 @@ uv sync
 
 # Usage
 
-`lgbfscotland` using `Dynaconf` to separate usage in development and
-production envrionments. To run the app locally a `.env` file must be
-created as follows:
+`lgbfscotland` using `Dynaconf` to separate usage in development and production
+envrionments. To run the app locally a `.env` file must be created as follows:
 
 ```
 ENV_FOR_DYNACONF="development"
