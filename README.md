@@ -1,7 +1,7 @@
 # lgbfscotland
 
 <!-- badges: start -->
-[![Test](https://github.com/jsleight1/lgbfscotland/actions/workflows/test.yml/badge.svg/badge.svg)](https://github.com/jsleight1/lgbfscotland/actions/workflows/test.yml)
+[![Test](https://github.com/jsleight1/lgbfscotland/actions/workflows/test.yml/badge.svg)](https://github.com/jsleight1/lgbfscotland/actions/workflows/test.yml)
 <!-- badges: end -->
 
 This repository contains a Python package for the `lgbfscotland' shiny application. This shiny application downloads, processes and presents
