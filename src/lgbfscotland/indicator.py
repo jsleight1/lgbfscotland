@@ -459,13 +459,17 @@ class indicator:
                             icon("gear"),
                             """
                             A Mann-Whitney U rank test was used to test the
-                            hypothesis that distribution of values across the time
-                            period was statistically different between the indicator
-                            and family group or Scotland group averages
-                            respectively. A P-value < 0.05 indicates that the
-                            indicator values for the selected local authority
-                            differs from other local authorities in the family group
-                            or across Scotland respectively.
+                            hypothesis that distribution of values across the
+                            time period was statistically different between the
+                            indicator and family group or Scotland group
+                            averages respectively. A P-value < 0.05 indicates
+                            that the indicator values for the selected local
+                            authority differs from other local authorities in
+                            the family group or across Scotland respectively.
+                            Please note it is unclear whether this data set
+                            violates the assumption that indepdendent variables
+                            are being tested therefore the results should be
+                            interpreted with caution.
                             """,
                             title="Notes",
                             placement="right",
