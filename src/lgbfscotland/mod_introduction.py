@@ -5,7 +5,7 @@ from faicons import icon_svg as icon
 
 
 @module.ui
-def mod_introduction_ui(data):
+def mod_introduction_ui(data: pd.DataFrame):
     return ui.nav_panel(
         icon("house"),
         ui.card(
@@ -56,5 +56,5 @@ def mod_introduction_ui(data):
 
 
 @module.server
-def mod_introduction_server(input, outputm, session, data):
+def mod_introduction_server(input, outputm, session, data: pd.DataFrame):
     return True

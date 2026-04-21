@@ -2,19 +2,23 @@ import requests
 import io
 import os
 import pandas as pd
+from dynaconf import LazySettings
 from lgbfscotland.utils_config import settings
-from azure.storage.blob import BlobServiceClient
+from azure.storage.blob import BlobServiceClient, BlobClient
+from typing import Dict
 
 
-def lgbf_metadata_url():
+def lgbf_metadata_url() -> str:
     return "https://data.spatialhub.scot/dataset/9a3728b4-49ea-40af-ab10-fc0305bace84/resource/00845629-44d0-489e-8c5e-9f49ed6b19ce/download/indicator-information.csv"
 
 
-def lgbf_data_url():
+def lgbf_data_url() -> str:
     return "https://data.spatialhub.scot/dataset/9a3728b4-49ea-40af-ab10-fc0305bace84/resource/7ba35197-7ca7-4477-a38b-01fd4180466b/download/lgbf_data_table_real.csv"
 
 
-def process_lgbf_data(metadata_url=lgbf_metadata_url(), data_url=lgbf_data_url()):
+def process_lgbf_data(
+    metadata_url: str = lgbf_metadata_url(), data_url: str = lgbf_data_url()
+) -> pd.DataFrame:
     metadata_cols = required_lgbf_metadata_cols()
     metadata = read_bytes_csv(metadata_url).rename(columns=metadata_cols)[
         metadata_cols.values()
@@ -24,13 +28,13 @@ def process_lgbf_data(metadata_url=lgbf_metadata_url(), data_url=lgbf_data_url()
     return output
 
 
-def read_bytes_csv(x):
+def read_bytes_csv(x: str) -> pd.DataFrame:
     req = requests.get(x)
     req.raise_for_status()
     return pd.read_csv(io.BytesIO(req.content))
 
 
-def required_lgbf_metadata_cols():
+def required_lgbf_metadata_cols() -> Dict[str, str]:
     return {
         "Code": "Indicators_Information_Code",
         "Title": "Indicators_Information_Title",
@@ -42,7 +46,7 @@ def required_lgbf_metadata_cols():
     }
 
 
-def save_lgbf_data(settings=settings, **kwargs):
+def save_lgbf_data(settings: LazySettings = settings, **kwargs) -> bool:
     match settings.type:
         case "development":
             return save_local_lgbf_data(**kwargs)
@@ -50,12 +54,20 @@ def save_lgbf_data(settings=settings, **kwargs):
             return save_azure_lgbf_data(**kwargs)
 
 
-def save_local_lgbf_data(settings=settings, data=process_lgbf_data(), **kwargs):
+def save_local_lgbf_data(
+    settings: LazySettings = settings,
+    data: pd.DataFrame = process_lgbf_data(),
+    **kwargs,
+) -> bool:
     data.to_parquet(path=settings.processed_data_file, engine="pyarrow")
     return os.path.exists(settings.processed_data_file)
 
 
-def save_azure_lgbf_data(settings=settings, data=process_lgbf_data(), **kwargs):
+def save_azure_lgbf_data(
+    settings: LazySettings = settings,
+    data: pd.DataFrame = process_lgbf_data(),
+    **kwargs,
+) -> bool:
     parquet_buffer = io.BytesIO()
     data.to_parquet(parquet_buffer, engine="pyarrow")
     parquet_buffer.seek(0)
@@ -64,7 +76,7 @@ def save_azure_lgbf_data(settings=settings, data=process_lgbf_data(), **kwargs):
     return blob_client.exists()
 
 
-def load_lgbf_data(settings=settings, **kwargs):
+def load_lgbf_data(settings: LazySettings = settings, **kwargs) -> pd.DataFrame:
     match settings.type:
         case "development":
             output = load_local_lgbf_data(settings=settings, **kwargs)
@@ -73,11 +85,11 @@ def load_lgbf_data(settings=settings, **kwargs):
     return output
 
 
-def load_local_lgbf_data(settings=settings, **kwargs):
+def load_local_lgbf_data(settings: LazySettings = settings, **kwargs) -> pd.DataFrame:
     return pd.read_parquet(settings.processed_data_file)
 
 
-def load_azure_lgbf_data(settings=settings, **kwargs):
+def load_azure_lgbf_data(settings: LazySettings = settings, **kwargs) -> pd.DataFrame:
     blob_client = get_blob_client(settings=settings)
     assert blob_client.exists(), "Data file doesn't exist in blob"
     download_stream = blob_client.download_blob()
@@ -86,7 +98,7 @@ def load_azure_lgbf_data(settings=settings, **kwargs):
     return output
 
 
-def get_blob_client(settings=settings):
+def get_blob_client(settings: LazySettings = settings) -> BlobClient:
     blob_service_client = BlobServiceClient(
         settings.blob_account_url, credential=settings.blob_account_key
     )

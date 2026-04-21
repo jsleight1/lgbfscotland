@@ -28,23 +28,23 @@ class indicator:
     --------
     >>> data = example_lgbf_data().merge(
     >>>   example_lgbf_metadata(),
-    >>>   on="Indicators_Information_Code",
-    >>>   how="inner"
+    >>>   on = "Indicators_Information_Code",
+    >>>   how = "inner"
     >>> )
     >>> data = data[(data["Indicators_Information_Code"] == "SW01") & (data["LA_Information_LocalAuthority"] == "Aberdeen City")]
     >>>
-    >>> output = indicator(x=data)
+    >>> output = indicator(x = data)
     >>> output
     >>> output.data
     >>> output.id()
     >>> output.title()
     >>> output.authority()
     >>> output.category()
-    >>> output.plot(type="indicator")
-    >>> output.plot(type="numerator_denominator")
+    >>> output.plot(type = "indicator")
+    >>> output.plot(type = "numerator_denominator")
     """
 
-    def __init__(self, x):
+    def __init__(self, x: pd.DataFrame):
         """
         Parameters
         ----------
@@ -160,12 +160,12 @@ class indicator:
         """
         return self._assert_unique_col("Indicators_Information_Category")
 
-    def _assert_unique_col(self, col):
+    def _assert_unique_col(self, col: str):
         output = pd.unique(self.data[col]).tolist()
         assert len(output) == 1, f"'{col}' must have only 1 unique value"
         return output[0]
 
-    def plot(self, type, **kwargs):
+    def plot(self, type: str, **kwargs):
         """
         Title
         -----
@@ -181,7 +181,7 @@ class indicator:
         Examples
         ----------
         >>> x = indicator.example_indicator()
-        >>> x.plot(type="indicator")
+        >>> x.plot(type = "indicator")
         """
         match type:
             case "indicator":
@@ -191,7 +191,7 @@ class indicator:
             case _:
                 raise Exception(f"{type} plot type not implemented")
 
-    def _indicator_plot(self, is_dark=False, **kwargs):
+    def _indicator_plot(self, is_dark: bool = False, **kwargs):
         data = self._indicator_plot_data()
         unit = pd.unique(data["Indicators_Information_Unit"]).tolist()[0]
         fig = px.line(data, x="Year", y="Metric", color="Category")
@@ -208,7 +208,7 @@ class indicator:
         fig = self._update_fig(fig=fig, is_dark=is_dark)
         return fig
 
-    def _numerator_denominator_plot(self, is_dark=False, **kwargs):
+    def _numerator_denominator_plot(self, is_dark: bool = False, **kwargs):
         data = self._numerator_denominator_plot_data()
         num_title = pd.unique(data["Indicators_Information_Numerator_Title"]).tolist()[
             0
@@ -244,7 +244,7 @@ class indicator:
         return fig
 
     @staticmethod
-    def _update_fig(fig, is_dark=False):
+    def _update_fig(fig, is_dark: bool = False):
         template = "plotly_dark" if is_dark else "plotly_white"
         text_color = "#f8f9fa" if is_dark else "#212529"
         hover_bg = "#343a40" if is_dark else "#ffffff"
@@ -302,7 +302,7 @@ class indicator:
         ]
         return output[req_cols]
 
-    def summary(self, type, **kwargs):
+    def summary(self, type: str, **kwargs):
         """
         Title
         -----
@@ -318,7 +318,7 @@ class indicator:
         Examples
         ----------
         >>> x = indicator.example_indicator()
-        >>> x.summary(type="indicator")
+        >>> x.summary(type = "indicator")
         """
         match type:
             case "indicator":
@@ -344,7 +344,7 @@ class indicator:
         }
         return self.data.rename(columns=cols)[cols.values()]
 
-    def _statistical_comparisons(self, test="mann_whitney"):
+    def _statistical_comparisons(self, test: str = "mann_whitney"):
         comparisons = [
             ("Indicator value", "Family group indicator value"),
             ("Indicator value", "Scotland indicator value"),
@@ -364,7 +364,7 @@ class indicator:
         return pd.DataFrame(output)
 
     @staticmethod
-    def _mann_whitney_compare(data, x, y):
+    def _mann_whitney_compare(data: pd.DataFrame, x: str, y: str):
         stat, p_val = mannwhitneyu(data[x], data[y])
         return {
             "Comparison": f"{x} vs {y}",
@@ -376,7 +376,7 @@ class indicator:
 
     @staticmethod
     @module.ui
-    def mod_ui(object):
+    def mod_ui(object: indicator):
         return ui.nav_panel(
             object.title(),
             ui.div(
@@ -388,7 +388,7 @@ class indicator:
 
     @staticmethod
     @module.server
-    def mod_server(input, output, session, object, is_dark):
+    def mod_server(input, output, session, object: indicator, is_dark):
         @render_widget
         def indicator_plot():
             logger.info("Creating indicator plot")

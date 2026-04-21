@@ -29,7 +29,7 @@ class indicator_area:
     >>> output.id
     """
 
-    def __init__(self, x, id):
+    def __init__(self, x: list[indicator], id: str):
         """
         Parameters
         ----------
@@ -61,7 +61,7 @@ class indicator_area:
     def _get_data(self):
         return self._data
 
-    def _set_data(self, value: list):
+    def _set_data(self, value: list[indicator]):
         """
         Title
         -----
@@ -107,7 +107,7 @@ class indicator_area:
 
     @staticmethod
     @module.ui
-    def mod_ui(object):
+    def mod_ui(object: indicator_area):
         authorities = [i.authority() for i in object.data]
         return ui.nav_panel(
             object.id,
@@ -156,7 +156,7 @@ class indicator_area:
 
     @staticmethod
     @module.server
-    def mod_server(input, output, session, object, is_dark):
+    def mod_server(input, output, session, object: indicator_area, is_dark):
         @render.ui
         def indicator_boxes():
             req(input.select_authority)
@@ -182,7 +182,7 @@ class indicator_area:
                 [ind.mod_server(clean_id(ind.id()), ind, is_dark) for ind in indicators]
             return ui.div(*output)
 
-    def _split_by_category(self, authority):
+    def _split_by_category(self, authority: str):
         output = [i for i in self.data if i.authority() == authority]
         output = pd.DataFrame(
             {"category": [i.category() for i in output], "data": output}

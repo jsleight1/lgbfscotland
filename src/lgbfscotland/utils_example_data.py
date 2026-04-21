@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def example_lgbf_metadata():
+def example_lgbf_metadata() -> pd.DataFrame:
     """
     Title
     -----
@@ -36,7 +36,7 @@ def example_lgbf_metadata():
     )
 
 
-def example_lgbf_data():
+def example_lgbf_data() -> pd.DataFrame:
     """
     Title
     -----
