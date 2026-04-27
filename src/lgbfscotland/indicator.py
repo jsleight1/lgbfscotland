@@ -433,7 +433,7 @@ class indicator:
                     "Plot",
                     ui.card_header(
                         ui.popover(
-                            icon("gear"),
+                            icon("question"),
                             """
                             These interactive line plots present data for the
                             selected local authority and indicator, alongsie the
@@ -456,7 +456,7 @@ class indicator:
                     "Statistical comparisons",
                     ui.card_header(
                         ui.popover(
-                            icon("gear"),
+                            icon("question"),
                             """
                             A Mann-Whitney U rank test was used to test the
                             hypothesis that distribution of values across the
@@ -481,7 +481,7 @@ class indicator:
                     "Download",
                     ui.card_header(
                         ui.popover(
-                            icon("gear"),
+                            icon("question"),
                             """
                             This interactive table presents all data
                             for the selected local authority and indicator,
