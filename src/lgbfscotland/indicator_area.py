@@ -58,10 +58,29 @@ class indicator_area:
         """
         return output
 
-    def _get_data(self):
+    def _validate(self):
+        assert isinstance(self.id, str), "id must be a string"
+        assert isinstance(self.data, list), "data is not list"
+        assert all([isinstance(i, indicator) for i in self.data]), (
+            "indicator area objects must only contain indicator objects"
+        )
+
+    def __setattr__(self, name, value):
+        old_value = getattr(self, name, None)
+        super().__setattr__(name, value)
+        if not name.startswith("_"):
+            try:
+                self._validate()
+            except Exception as e:
+                super().__setattr__(name, old_value)
+                raise e
+
+    @property
+    def data(self):
         return self._data
 
-    def _set_data(self, value: list[indicator]):
+    @data.setter
+    def data(self, value: list[indicator]):
         """
         Title
         -----
@@ -72,18 +91,14 @@ class indicator_area:
         value: list
             A list of indicator objects.
         """
-        assert isinstance(value, list), "data is not list"
-        assert all([isinstance(i, indicator) for i in value]), (
-            "indicator area objects must only contain indicator objects"
-        )
         self._data = deepcopy(value)
 
-    data = property(_get_data, _set_data)
-
-    def _get_id(self):
+    @property
+    def id(self):
         return self._id
 
-    def _set_id(self, value: str):
+    @id.setter
+    def id(self, value: str):
         """
         Title
         -----
@@ -94,16 +109,7 @@ class indicator_area:
         value: string
             A string id.
         """
-        assert isinstance(value, str), "id must be a string string"
         self._id = deepcopy(value)
-
-    id = property(_get_id, _set_id)
-
-    def _validate(self):
-        assert isinstance(self.id, str), "id must be a string"
-        assert all([isinstance(i, indicator) for i in self.data]), (
-            "indicator area objects must only contain indicator objects"
-        )
 
     @staticmethod
     @module.ui

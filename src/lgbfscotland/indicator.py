@@ -77,10 +77,33 @@ class indicator:
         """
         return output
 
-    def _get_data(self):
+    def __setattr__(self, name, value):
+        old_value = getattr(self, name, None)
+        super().__setattr__(name, value)
+        if not name.startswith("_"):
+            try:
+                self._validate()
+            except Exception as e:
+                super().__setattr__(name, old_value)
+                raise e
+
+    def _validate(self):
+        assert isinstance(self.data, pd.DataFrame), "data is not DataFrame"
+        assert isinstance(self.id(), str), "id must be string"
+        assert isinstance(self.title(), str), "title must be string"
+        assert isinstance(self.authority(), str), "authority must be string"
+        assert isinstance(self.category(), str), "category must be string"
+        req_cols = indicator._required_indicator_cols()
+        assert set(req_cols).issubset(self.data.columns), (
+            "Missing columns. 'See _required_indicator_cols' for all required columns"
+        )
+
+    @property
+    def data(self):
         return self._data
 
-    def _set_data(self, value: pd.DataFrame):
+    @data.setter
+    def data(self, value: pd.DataFrame):
         """
         Title
         -----
@@ -93,19 +116,6 @@ class indicator:
         """
         assert isinstance(value, pd.DataFrame), "data is not DataFrame"
         self._data = deepcopy(value)
-
-    data = property(_get_data, _set_data)
-
-    def _validate(self):
-        assert isinstance(self.data, pd.DataFrame), "data is not DataFrame"
-        assert isinstance(self.id(), str), "id must be string"
-        assert isinstance(self.title(), str), "title must be string"
-        assert isinstance(self.authority(), str), "authority must be string"
-        assert isinstance(self.category(), str), "category must be string"
-        req_cols = indicator._required_indicator_cols()
-        assert set(req_cols).issubset(self.data.columns), (
-            "Missing columns. 'See _required_indicator_cols' for all required columns"
-        )
 
     @staticmethod
     def _required_indicator_cols():

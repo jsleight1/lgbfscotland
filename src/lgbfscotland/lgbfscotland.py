@@ -74,7 +74,7 @@ def create_indicator_areas(x: pd.DataFrame):
         grps = ["Indicators_Information_Code", "LA_Information_LocalAuthority"]
         output = indicator_area(
             x=[indicator(group) for _, group in i.groupby(grps)],
-            id=pd.unique(i["Indicators_Information_ServiceArea"]).tolist()[0],
+            id=name,
         )
         indicator_areas[name] = output
     return indicator_areas

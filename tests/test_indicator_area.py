@@ -37,14 +37,19 @@ def test_indicator_area_properties():
     with pytest.raises(AssertionError) as err:
         output.id = 1
     assert "id must be a string" in str(err.value)
+    assert output.id == "service_area"
+
     with pytest.raises(AssertionError) as err:
         output.data = 1
     assert "data is not list" in str(err.value)
+    assert all([isinstance(i, indicator) for i in output.data])
+
     with pytest.raises(AssertionError) as err:
         output.data = [1, 2]
     assert "indicator area objects must only contain indicator objects" in str(
         err.value
     )
+    assert all([isinstance(i, indicator) for i in output.data])
 
 
 def test_indicator_area_modules():

@@ -18,6 +18,7 @@ indicator_data = indicator_data[
 def test_indicator_generation(snapshot):
     output = indicator(indicator_data)
     assert isinstance(output, indicator)
+    assert output.data.equals(indicator_data)
     assert output.id() == "SW01"
     assert output.title() == "Home care costs per hour for people aged 65 or over"
     assert output.authority() == "Aberdeen City"
@@ -76,8 +77,10 @@ def test_plot_indicator():
     with pytest.raises(Exception) as err:
         x.plot(type="t")
     assert "t plot type not implemented" == str(err.value)
+
     output = x.plot(type="indicator")
     assert isinstance(output, go.Figure)
+
     output = x.plot(type="numerator_denominator")
     assert isinstance(output, go.Figure)
 
@@ -92,9 +95,11 @@ def test_summary_indicator(snapshot):
     with pytest.raises(Exception) as err:
         x.summary(type="t")
     assert "t summary type not implemented" == str(err.value)
+
     output = x.summary(type="indicator")
     assert isinstance(output, pd.DataFrame)
     snapshot.assert_match(str(output), "indicator_summary.txt")
+
     output = x.summary(type="statistical_comparisons")
     assert isinstance(output, pd.DataFrame)
     snapshot.assert_match(str(output), "indicator_statistical_comaparisons.txt")
@@ -105,6 +110,25 @@ def test_indicator_properties():
     with pytest.raises(AssertionError) as err:
         output.data = 1
     assert "data is not DataFrame" in str(err.value)
+    assert output.data.equals(indicator_data)
+    assert isinstance(output.data, pd.DataFrame)
+
+    output = indicator(indicator_data)
+    test_data = deepcopy(indicator_data)
+    test_data = test_data.drop(columns=["Scotland_Data_Scotland_Indicator_Real"])
+    with pytest.raises(AssertionError) as err:
+        output.data = test_data
+    assert "Missing columns" in str(err.value)
+    assert output.data.equals(indicator_data)
+
+    test_data = deepcopy(indicator_data)
+    test_data["Indicators_Information_Code"] = ["a", "b"]
+    with pytest.raises(AssertionError) as err:
+        output.data = test_data
+    assert "'Indicators_Information_Code' must have only 1 unique value" in str(
+        err.value
+    )
+    assert output.data.equals(indicator_data)
 
 
 def test_indicator_modules():
