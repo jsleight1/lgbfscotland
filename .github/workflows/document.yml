@@ -1,0 +1,31 @@
+on:
+  push:
+    branches: [main]
+  release:
+    types: [published]
+  workflow_dispatch:
+
+name: Deploy documentation
+
+jobs:
+  deploy_documentation:
+    runs-on: ubuntu-latest
+    container:
+      image: docker.io/jsleight1/lgbfscotland:latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install rsync
+        run: apt-get update && apt-get install -y rsync
+      - name: Install the project
+        run: uv sync --locked --all-extras --dev
+      - name: Build site
+        run: uv run mkdocs build
+      - name: Deploy to GitHub pages 🚀
+        if: github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
+        with:
+          clean: false
+          branch: gh-pages
+          folder: site

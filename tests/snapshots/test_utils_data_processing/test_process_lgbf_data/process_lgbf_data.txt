@@ -1,0 +1,11 @@
+  Indicators_Information_Code  ... Indicators_Information_Category
+0                       C&L02  ...                       Financial
+1                       C&L02  ...                       Financial
+2                       C&L02  ...                       Financial
+3                       C&L02  ...                       Financial
+4                        SW01  ...                       Financial
+5                        SW01  ...                       Financial
+6                        SW01  ...                       Financial
+7                        SW01  ...                       Financial
+
+[8 rows x 18 columns]

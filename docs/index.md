@@ -1,11 +1,6 @@
 # lgbfscotland
 
-<!-- badges: start -->
-[![Test](https://github.com/jsleight1/lgbfscotland/actions/workflows/test.yml/badge.svg)](https://github.com/jsleight1/lgbfscotland/actions/workflows/test.yml)
-<!-- badges: end -->
-
-This repository contains a Python package for the <a
-href="https://www.lgbfscotland.co.uk/" target="_blank">lgbfscotland</a>  shiny
+This repository contains a Python package for the `lgbfscotland' shiny
 application. This shiny application downloads, processes and presents local
 government benchmarking framework (LGBF) data.
 
@@ -21,8 +16,9 @@ uv sync
 
 # Usage
 
-`lgbfscotland` using `Dynaconf` to separate usage in development and production
-envrionments. To run the app locally a `.env` file must be created as follows:
+`lgbfscotland` using `Dynaconf` to separate usage in development and
+production envrionments. To run the app locally a `.env` file must be
+created as follows:
 
 ```
 ENV_FOR_DYNACONF="development"

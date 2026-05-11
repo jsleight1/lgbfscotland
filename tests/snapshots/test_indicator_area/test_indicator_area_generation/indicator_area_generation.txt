@@ -1,0 +1,5 @@
+
+        Indicator area object
+        - id: id
+        - N indicators: 4
+        

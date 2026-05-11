@@ -1,0 +1,5 @@
+                                        Comparison  ...  P-value (unadjusted)
+0  Indicator value vs Family group indicator value  ...              0.333333
+1      Indicator value vs Scotland indicator value  ...              1.000000
+
+[2 rows x 5 columns]

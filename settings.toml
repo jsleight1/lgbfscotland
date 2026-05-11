@@ -1,0 +1,12 @@
+[default]
+processed_data_file = "processed_lgbf_data.parquet"
+
+[development]
+type = "development"
+
+[production]
+type = "production"
+azure_storage_container = "@path env[DYNACONF_AZURE_STORAGE_CONTAINER]"
+blob_account_url = "@path env[DYNACONF_BLOB_ACCOUNT_URL]"
+blob_account_key = "@path env[DYNACONF_BLOB_ACCOUNT_KEY]"
+

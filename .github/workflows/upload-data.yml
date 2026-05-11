@@ -1,0 +1,27 @@
+on:
+  schedule:
+    # Upload data to Azure blob every 6 months
+    - cron: "0 0 1 */6 *"
+
+name: Upload data
+
+jobs:
+  upload-data:
+    runs-on: ubuntu-latest
+    container:
+      image: docker.io/jsleight1/lgbfscotland:latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install the project
+        run: uv sync --locked --all-extras --dev
+      - name: Upload data to Azure blob
+        env:
+          ENV_FOR_DYNACONF: production
+          DYNACONF_AZURE_STORAGE_CONTAINER: ${{ secrets.AZURE_STORAGE_CONTAINER }}
+          DYNACONF_BLOB_ACCOUNT_URL: ${{ secrets.BLOB_ACCOUNT_URL }}
+          DYNACONF_BLOB_ACCOUNT_KEY: ${{ secrets.BLOB_ACCOUNT_KEY }}
+        run: |
+          from lgbfscotland.utils_data_processing import save_lgbf_data
+          from lgbfscotland.utils_config import settings
+          save_lgbf_data()
+        shell: uv run python {0}

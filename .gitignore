@@ -1,0 +1,6 @@
+__pycache__/
+.secrets.toml
+.env
+*.parquet
+site
+.DS_Store

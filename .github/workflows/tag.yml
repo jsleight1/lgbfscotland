@@ -1,0 +1,21 @@
+on:
+  push:
+    branches: [main]
+
+name: Tag
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    container:
+      image: docker.io/jsleight1/lgbfscotland:latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create and push tag
+        run: |
+          git config --global --add safe.directory /__w/lgbfscotland/lgbfscotland
+          VERSION=$(uv version | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+          git tag "v$VERSION"
+          git push origin "v$VERSION"

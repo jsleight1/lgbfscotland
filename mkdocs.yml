@@ -1,0 +1,19 @@
+site_name: lgbfscotland
+site_url: https://github.com/jsleight1/lgbfscotland
+repo_url: https://github.com/jsleight1/lgbfscotland
+repo_name: lgbfscotland
+
+nav:
+  - Introduction: index.md
+  - Reference:
+    - reference/lgbfscotland.md
+    - reference/indicator.md
+    - reference/indicator_area.md
+    - reference/examples.md
+
+plugins:
+  - search
+  - mkdocstrings
+
+theme:
+  name: material

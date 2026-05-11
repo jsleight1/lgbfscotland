@@ -1,0 +1,29 @@
+[
+        Indicator object
+        - id: C&L02
+        - title: Cost per Library Visit
+        - authority: Aberdeen City
+        - category: Financial
+        - Dimensions: 18 x 2
+        , 
+        Indicator object
+        - id: C&L02
+        - title: Cost per Library Visit
+        - authority: Falkirk
+        - category: Financial
+        - Dimensions: 18 x 2
+        , 
+        Indicator object
+        - id: SW01
+        - title: Home care costs per hour for people aged 65 or over
+        - authority: Aberdeen City
+        - category: Financial
+        - Dimensions: 18 x 2
+        , 
+        Indicator object
+        - id: SW01
+        - title: Home care costs per hour for people aged 65 or over
+        - authority: Falkirk
+        - category: Financial
+        - Dimensions: 18 x 2
+        ]
