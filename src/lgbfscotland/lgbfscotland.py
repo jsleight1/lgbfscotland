@@ -65,6 +65,14 @@ def lgbfscotland(**kwargs):
 
 
 def create_indicator_areas(x: pd.DataFrame):
+    """
+    Create dictionary of indicator area objects
+
+    Parameters
+    ----------
+    x: pd.DataFrame
+        Pandas DataFrame of processed lgbf data.
+    """
     service_areas = [
         group for _, group in x.groupby("Indicators_Information_ServiceArea")
     ]

@@ -1,5 +1,9 @@
 # Change log
 
+## 1.0.1
+
+* Add script to automate collation of method references in documentation site
+
 ## 1.0.0
 
 * Initial creation of LGBFScotland application.

@@ -1,19 +1,24 @@
 site_name: lgbfscotland
 site_url: https://github.com/jsleight1/lgbfscotland
-repo_url: https://github.com/jsleight1/lgbfscotland
-repo_name: lgbfscotland
 
 nav:
   - Introduction: index.md
-  - Reference:
-    - reference/lgbfscotland.md
-    - reference/indicator.md
-    - reference/indicator_area.md
-    - reference/examples.md
+  - Reference: reference/SUMMARY.md
 
 plugins:
   - search
-  - mkdocstrings
+  - gen-files:
+      scripts:
+        - docs/scripts/generate_reference.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: numpy
 
 theme:
-  name: material
+  name: mkdocs

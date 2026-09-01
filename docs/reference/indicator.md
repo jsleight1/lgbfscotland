@@ -1,1 +1,0 @@
-::: lgbfscotland.indicator.indicator

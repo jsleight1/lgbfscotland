@@ -198,6 +198,20 @@ class indicator_area:
 
     @staticmethod
     def example_indicator_area():
+        """
+        Title
+        -----
+        Generate example indicator area object
+
+        Returns
+        ----------
+        indicator area object.
+
+        Examples
+        ----------
+        >>> x = indicator.example_indicator_area()
+        >>> print(x)
+        """
         metadata = example_lgbf_metadata()
         data = example_lgbf_data()
         indicator_data = data.merge(
