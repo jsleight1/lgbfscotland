@@ -3,6 +3,14 @@ import textwrap
 
 
 def clean_id(x: str) -> str:
+    """
+    Clean string ID for rendering module UI
+
+    Parameters
+    ----------
+    x: str
+        String to clean.
+    """
     x = x.lower().strip()
     x = re.sub(r"[\s\-]+", "_", x)
     x = re.sub(r"[^\w]+", "", x)
@@ -10,4 +18,14 @@ def clean_id(x: str) -> str:
 
 
 def wrap_text(x: str, width: float = 40):
+    """
+    Wrap text with <br> breakpoint.
+
+    Parameters
+    ----------
+    x: str
+        String to wrap
+    width: float
+        Number of characters per <br>
+    """
     return "<br>".join(textwrap.wrap(x, width=width))

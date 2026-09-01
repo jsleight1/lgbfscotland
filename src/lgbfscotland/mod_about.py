@@ -4,6 +4,11 @@ from htmltools import tags
 
 @module.ui
 def mod_about_ui():
+    """
+    Title
+    -----
+    About module UI
+    """
     return ui.nav_panel(
         "About",
         ui.div(

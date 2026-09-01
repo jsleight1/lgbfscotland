@@ -16,7 +16,7 @@ class test_settings:
 def test_process_lgbf_data(snapshot, mocker):
     data_map = {"metadata": example_lgbf_metadata(), "data": example_lgbf_data()}
     mock = mocker.patch(
-        "lgbfscotland.utils_data_processing.read_bytes_csv",
+        "lgbfscotland.utils_data_processing._read_bytes_csv",
         side_effect=lambda x: data_map.get(x),
     )
     output = process_lgbf_data("metadata", "data")
@@ -29,14 +29,14 @@ def test_process_lgbf_data(snapshot, mocker):
 def test_save_lgbf_data(mocker):
     settings = test_settings("development")
     mock = mocker.patch(
-        "lgbfscotland.utils_data_processing.save_local_lgbf_data", return_value=True
+        "lgbfscotland.utils_data_processing._save_local_lgbf_data", return_value=True
     )
     output = save_lgbf_data(settings=settings, data="data")
     assert output
     mock.assert_called_once_with(data="data")
     settings = test_settings("production")
     mock = mocker.patch(
-        "lgbfscotland.utils_data_processing.save_azure_lgbf_data", return_value=True
+        "lgbfscotland.utils_data_processing._save_azure_lgbf_data", return_value=True
     )
     output = save_lgbf_data(settings=settings, data="data")
     assert output
@@ -46,14 +46,14 @@ def test_save_lgbf_data(mocker):
 def test_load_lgbf_data(mocker):
     settings = test_settings("development")
     mock = mocker.patch(
-        "lgbfscotland.utils_data_processing.load_local_lgbf_data", return_value=True
+        "lgbfscotland.utils_data_processing._load_local_lgbf_data", return_value=True
     )
     output = load_lgbf_data(settings=settings, data="data")
     assert output
     mock.assert_called_once_with(settings=settings, data="data")
     settings = test_settings("production")
     mock = mocker.patch(
-        "lgbfscotland.utils_data_processing.load_azure_lgbf_data", return_value=True
+        "lgbfscotland.utils_data_processing._load_azure_lgbf_data", return_value=True
     )
     output = load_lgbf_data(settings=settings, data="data")
     assert output

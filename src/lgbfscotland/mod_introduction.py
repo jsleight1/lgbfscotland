@@ -6,6 +6,16 @@ from faicons import icon_svg as icon
 
 @module.ui
 def mod_introduction_ui(data: pd.DataFrame):
+    """
+    Title
+    -----
+    Introduction module UI
+
+    Parameters
+    ----------
+    data:
+        Pandas data.frame of loaded lgbf data
+    """
     return ui.nav_panel(
         icon("house"),
         ui.card(
@@ -53,8 +63,3 @@ def mod_introduction_ui(data: pd.DataFrame):
             ),
         ),
     )
-
-
-@module.server
-def mod_introduction_server(input, outputm, session, data: pd.DataFrame):
-    return True

@@ -185,7 +185,7 @@ class indicator:
         ----------
         type: str
             Type of plot. Either "indicator" or "numerator_denominator"
-        **kwargs:
+        **kwargs: Any
             Passed to plotting methods.
 
         Examples

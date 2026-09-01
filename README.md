@@ -57,6 +57,8 @@ The application can then be viewed at:
 http://localhost:9003/
 ```
 
+Please refer to the [lgbfscotland documentation](https://jsleight1.github.io/lgbfscotland/) for further details.
+
 ## Disclaimer
 
 This python package is licensed using GNU General Public License and contains

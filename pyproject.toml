@@ -1,6 +1,6 @@
 [project]
 name = "lgbfscotland"
-version = "1.0.0"
+version = "1.0.1"
 description = "Python shiny application for presenting Scottish local government benchmarking framework data"
 readme = "README.md"
 license = "GPL-3.0-or-later"
@@ -16,7 +16,8 @@ dependencies = [
     "libsass>=0.23.0",
     "loguru>=0.7.3",
     "mkdocs>=1.6.1",
-    "mkdocs-material>=9.7.6",
+    "mkdocs-gen-files>=0.6.1",
+    "mkdocs-literate-nav>=0.6.3",
     "mkdocstrings[python]>=1.0.3",
     "numpy>=2.4.3",
     "pandas>=3.0.1",
