@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://github.com/jsleight1/lgbfscotland/reference/lgbfscotland/utils_data_processing/">
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>Utils data processing - lgbfscotland</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../../assets/_mkdocstrings.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">lgbfscotland</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../../.." class="nav-link">Introduction</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../SUMMARY/" class="nav-link">Reference</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="2"><a href="#lgbfscotland.utils_data_processing" class="nav-link">utils_data_processing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#lgbfscotland.utils_data_processing.load_lgbf_data" class="nav-link">load_lgbf_data</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#lgbfscotland.utils_data_processing.process_lgbf_data" class="nav-link">process_lgbf_data</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#lgbfscotland.utils_data_processing.save_lgbf_data" class="nav-link">save_lgbf_data</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="lgbfscotland.utils_data_processing"></a>
+    <div class="doc doc-contents first">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="lgbfscotland.utils_data_processing.load_lgbf_data" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">load_lgbf_data</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">settings</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+<details class="title" open>
+  <summary>Title</summary>
+  <p>Load processed LGBF data for use by lgbfscotland application
+from either local or azure remote parquet file.</p>
+</details>
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>settings</code>
+            </td>
+            <td>
+                  <code><span title="dynaconf.LazySettings">LazySettings</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Settings config loaded from settings.toml</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="lgbfscotland.utils_config.settings">settings</span></code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>**kwargs</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Additional key arguments passed to _load_local_lgbf_data and _load_azure_lgbf_data</p>
+              </div>
+            </td>
+            <td>
+                  <code>{}</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/lgbfscotland/utils_data_processing.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_lgbf_data</span><span class="p">(</span><span class="n">settings</span><span class="p">:</span> <span class="n">LazySettings</span> <span class="o">=</span> <span class="n">settings</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Title</span>
+<span class="sd">    -----</span>
+<span class="sd">    Load processed LGBF data for use by lgbfscotland application</span>
+<span class="sd">    from either local or azure remote parquet file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    settings: LazySettings</span>
+<span class="sd">        Settings config loaded from settings.toml</span>
+<span class="sd">    **kwargs: Any</span>
+<span class="sd">        Additional key arguments passed to _load_local_lgbf_data and _load_azure_lgbf_data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">match</span> <span class="n">settings</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
+        <span class="k">case</span> <span class="s2">&quot;development&quot;</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">_load_local_lgbf_data</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">settings</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">case</span> <span class="s2">&quot;production&quot;</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">_load_azure_lgbf_data</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">settings</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">output</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="lgbfscotland.utils_data_processing.process_lgbf_data" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">process_lgbf_data</span><span class="p">(</span><span class="n">metadata_url</span><span class="o">=</span><span class="n">_lgbf_metadata_url</span><span class="p">(),</span> <span class="n">data_url</span><span class="o">=</span><span class="n">_lgbf_data_url</span><span class="p">())</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+<details class="title" open>
+  <summary>Title</summary>
+  <p>Process LGBF data into useable format by lgbfscotland application</p>
+</details>
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>metadata_url</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>URL for lgbf metadata in spatial hub.</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="lgbfscotland.utils_data_processing._lgbf_metadata_url">_lgbf_metadata_url</span>()</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>data_url</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>URL for lgbf data in spatial hub</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="lgbfscotland.utils_data_processing._lgbf_data_url">_lgbf_data_url</span>()</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/lgbfscotland/utils_data_processing.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">process_lgbf_data</span><span class="p">(</span>
+    <span class="n">metadata_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">_lgbf_metadata_url</span><span class="p">(),</span> <span class="n">data_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">_lgbf_data_url</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Title</span>
+<span class="sd">    -----</span>
+<span class="sd">    Process LGBF data into useable format by lgbfscotland application</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    metadata_url: str</span>
+<span class="sd">        URL for lgbf metadata in spatial hub.</span>
+<span class="sd">    data_url: str</span>
+<span class="sd">        URL for lgbf data in spatial hub</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">metadata_cols</span> <span class="o">=</span> <span class="n">_required_lgbf_metadata_cols</span><span class="p">()</span>
+    <span class="n">metadata</span> <span class="o">=</span> <span class="n">_read_bytes_csv</span><span class="p">(</span><span class="n">metadata_url</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">metadata_cols</span><span class="p">)[</span>
+        <span class="n">metadata_cols</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+    <span class="p">]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">_read_bytes_csv</span><span class="p">(</span><span class="n">data_url</span><span class="p">)</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;Indicators_Information_Code&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">output</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="lgbfscotland.utils_data_processing.save_lgbf_data" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">save_lgbf_data</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">settings</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+<details class="title" open>
+  <summary>Title</summary>
+  <p>Save processed LGBF data into useable format by lgbfscotland application
+as either local or azure remote parquet file.</p>
+</details>
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>settings</code>
+            </td>
+            <td>
+                  <code><span title="dynaconf.LazySettings">LazySettings</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Settings config loaded from settings.toml</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="lgbfscotland.utils_config.settings">settings</span></code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>**kwargs</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Additional key arguments passed to _save_local_lgbf_data and _save_azure_lgbf_data</p>
+              </div>
+            </td>
+            <td>
+                  <code>{}</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/lgbfscotland/utils_data_processing.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save_lgbf_data</span><span class="p">(</span><span class="n">settings</span><span class="p">:</span> <span class="n">LazySettings</span> <span class="o">=</span> <span class="n">settings</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Title</span>
+<span class="sd">    -----</span>
+<span class="sd">    Save processed LGBF data into useable format by lgbfscotland application</span>
+<span class="sd">    as either local or azure remote parquet file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    settings: LazySettings</span>
+<span class="sd">        Settings config loaded from settings.toml</span>
+<span class="sd">    **kwargs: Any</span>
+<span class="sd">        Additional key arguments passed to _save_local_lgbf_data and _save_azure_lgbf_data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">match</span> <span class="n">settings</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
+        <span class="k">case</span> <span class="s2">&quot;development&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_save_local_lgbf_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">case</span> <span class="s2">&quot;production&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_save_azure_lgbf_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
