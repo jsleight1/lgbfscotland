@@ -1,12 +1,16 @@
 site_name: lgbfscotland
 site_url: https://github.com/jsleight1/lgbfscotland
+repo_url: https://github.com/jsleight1/lgbfscotland
 
 nav:
   - Introduction: index.md
+  - Articles: articles/
   - Reference: reference/SUMMARY.md
 
 plugins:
   - search
+  - macros:
+      module_name: docs/scripts/version
   - gen-files:
       scripts:
         - docs/scripts/generate_reference.py

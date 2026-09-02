@@ -1,8 +1,12 @@
 # Change log
 
+## 1.0.2
+
+* Add `data_workflow` and `indicator_objects` articles to documentation.
+
 ## 1.0.1
 
-* Add script to automate collation of method references in documentation site
+* Add script to automate collation of method references in documentation site.
 
 ## 1.0.0
 

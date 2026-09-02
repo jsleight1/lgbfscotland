@@ -1,10 +1,11 @@
-# lgbfscotland
+## lgbfscotland v{{ package_version }}
 
-This repository contains a Python package for the `lgbfscotland' shiny
-application. This shiny application downloads, processes and presents local
-government benchmarking framework (LGBF) data.
+This repository contains a Python package for the
+[lgbfscotland](https://www.lgbfscotland.co.uk/) shiny application. This shiny
+application downloads, processes and presents local government benchmarking
+framework (LGBF) data.
 
-# Installation
+## Installation
 
 `lgbfscotland` is structured as a [uv](https://docs.astral.sh/uv/) package and
 can be installed by cloning the repo and performing the following:
@@ -14,11 +15,10 @@ pip install uv
 uv sync
 ```
 
-# Usage
+## Usage
 
-`lgbfscotland` using `Dynaconf` to separate usage in development and
-production envrionments. To run the app locally a `.env` file must be
-created as follows:
+`lgbfscotland` using `Dynaconf` to separate usage in development and production
+envrionments. To run the app locally a `.env` file must be created as follows:
 
 ```
 ENV_FOR_DYNACONF="development"
@@ -32,7 +32,8 @@ from lgbfscotland.utils_data_processing.py import save_lgbf_data
 save_lgbf_data()
 ```
 
-This will save the LGBF as a parquet file. The shiny app can then by run locally from your terminal.
+This will save the LGBF as a parquet file. The shiny app can then by run locally
+from your terminal.
 
 ```
 uv run shiny run app.py
