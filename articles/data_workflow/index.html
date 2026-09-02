@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="canonical" href="https://github.com/jsleight1/lgbfscotland/reference/lgbfscotland/">
+        <link rel="canonical" href="https://github.com/jsleight1/lgbfscotland/articles/data_workflow/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Index - lgbfscotland</title>
+        <title>Data workflow - lgbfscotland</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -39,20 +39,20 @@
                                 <a href="../.." class="nav-link">Introduction</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Articles</a>
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Articles</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../articles/data_workflow/" class="dropdown-item">Data workflow</a>
+    <a href="./" class="dropdown-item active" aria-current="page">Data workflow</a>
 </li>
                                     
 <li>
-    <a href="../../articles/indicator_objects/" class="dropdown-item">Indicator objects</a>
+    <a href="../indicator_objects/" class="dropdown-item">Indicator objects</a>
 </li>
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a href="../SUMMARY/" class="nav-link">Reference</a>
+                                <a href="../../reference/SUMMARY/" class="nav-link">Reference</a>
                             </li>
                         </ul>
 
@@ -63,7 +63,17 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a href="https://github.com/jsleight1/lgbfscotland/edit/master/docs/src/lgbfscotland/__init__.py" class="nav-link"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                                <a rel="prev" href="../.." class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../indicator_objects/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/jsleight1/lgbfscotland/edit/master/docs/articles/data_workflow.md" class="nav-link"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
                             </li>
                     </ul>
                 </div>
@@ -83,7 +93,17 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="2"><a href="#lgbfscotland" class="nav-link">lgbfscotland</a>
+            <li class="nav-item" data-bs-level="2"><a href="#introduction" class="nav-link">Introduction</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#data-sources" class="nav-link">Data sources</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#data-workflow" class="nav-link">Data workflow</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -92,40 +112,18 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<div class="doc doc-object doc-module">
-
-
-
-<a id="lgbfscotland"></a>
-    <div class="doc doc-contents first">
-
-
-
-
-
-
-
-
-
-
-<div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-    </div>
-
-</div></div>
+<h2 id="introduction">Introduction</h2>
+<h2 id="data-sources">Data sources</h2>
+<p>The data sets used by the application are sourced from the Local Government
+Benchmarking Framework
+(<a href="https://www.improvementservice.org.uk/benchmarking/">LGBF</a>) using the <a href="https://data.spatialhub.scot/dataset/local_government_benchmarking_framework-is">Spatial
+Hub</a>. These data sets are licensed under a UK Open Government Licence (OGL) license.</p>
+<h2 id="data-workflow">Data workflow</h2>
+<p>The 'LGBF indicators information' and 'LGBF Data Table Real' data sets are
+obtained periodically using a GitHub action and manipulated into a single data
+set. This data workflow creates a single parquet file which are stored as  in an
+Azure blob. This Azure blob is accessed when the shiny application launches. The
+data set is periodically updated every 6 months using a GitHub action.</p></div>
             </div>
         </div>
 

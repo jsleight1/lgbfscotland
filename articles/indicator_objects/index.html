@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="canonical" href="https://github.com/jsleight1/lgbfscotland/reference/lgbfscotland/">
+        <link rel="canonical" href="https://github.com/jsleight1/lgbfscotland/articles/indicator_objects/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Index - lgbfscotland</title>
+        <title>Indicator objects - lgbfscotland</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -39,20 +39,20 @@
                                 <a href="../.." class="nav-link">Introduction</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Articles</a>
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Articles</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../articles/data_workflow/" class="dropdown-item">Data workflow</a>
+    <a href="../data_workflow/" class="dropdown-item">Data workflow</a>
 </li>
                                     
 <li>
-    <a href="../../articles/indicator_objects/" class="dropdown-item">Indicator objects</a>
+    <a href="./" class="dropdown-item active" aria-current="page">Indicator objects</a>
 </li>
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a href="../SUMMARY/" class="nav-link">Reference</a>
+                                <a href="../../reference/SUMMARY/" class="nav-link">Reference</a>
                             </li>
                         </ul>
 
@@ -63,7 +63,17 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a href="https://github.com/jsleight1/lgbfscotland/edit/master/docs/src/lgbfscotland/__init__.py" class="nav-link"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                                <a rel="prev" href="../data_workflow/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../../reference/SUMMARY/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/jsleight1/lgbfscotland/edit/master/docs/articles/indicator_objects.md" class="nav-link"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
                             </li>
                     </ul>
                 </div>
@@ -83,7 +93,17 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="2"><a href="#lgbfscotland" class="nav-link">lgbfscotland</a>
+            <li class="nav-item" data-bs-level="2"><a href="#introduction" class="nav-link">Introduction</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#indicator" class="nav-link">Indicator</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#indicator-area" class="nav-link">Indicator Area</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -92,40 +112,66 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<div class="doc doc-object doc-module">
+<h2 id="introduction">Introduction</h2>
+<p>Lgbfscotland uses the transformed data (see <a href="../data_workflow/">data workflow</a>)
+to create a series of <code>Indicator Area</code> and <code>Indicator</code> class objects that
+are used to summarise and present LGBF data across the shiny application.</p>
+<h2 id="indicator">Indicator</h2>
+<p>The object that acts as the lowest common denominator is the <code>indicator</code> class
+object. This object stores data for a single indicator for a single local
+authority.</p>
+<p>An example of this object can be created.</p>
+<pre><code>output = indicator.example_indicator()
+output
+</code></pre>
+<p>This object has associated attributes storing the id, title, authority and
+category of the stored indicator data set.</p>
+<pre><code>output.data
+output.id()
+output.title()
+output.authority()
+output.category()
+</code></pre>
+<p>The object can be plotted and summarised.</p>
+<pre><code>output.plot(type = &quot;indicator&quot;)
+output.plot(type = &quot;numerator_denominator&quot;)
+output.summary(type = &quot;indicator&quot;)
+</code></pre>
+<p>The object can also be included in a shiny application with its associated
+<code>mod_ui</code> and <code>mod_server</code> methods.</p>
+<pre><code>app_ui = ui.page_navbar(
+    output.mod_ui(&quot;indicator&quot;, object = output)
+)
 
+def server(input, output, session):
+    output.mod_server(&quot;indicator&quot;, object = output)
 
+App(ui=app_ui, server=server)
+</code></pre>
+<h2 id="indicator-area">Indicator Area</h2>
+<p>lgbfscotland also contains functionality that combines several indicators into
+a single indicator area. A list of <code>indicator</code> objects can be stored
+in a <code>indicator_area</code> object.</p>
+<p>An example of this object can be created</p>
+<pre><code>data = indicator.example_indicator()
+output = indicator_area(data = [data], id = &quot;area&quot;)
+output
+</code></pre>
+<p>Appropriate getter methods can be called to obtain this objects attributes</p>
+<pre><code>output.data
+output.id
+</code></pre>
+<p>Similarly to the <code>indicator</code> object, the <code>indicator_area</code> object can be included
+in a shiny application with its associated <code>mod_ui</code> and <code>mod_server</code> methods.</p>
+<pre><code>app_ui = ui.page_navbar(
+    output.mod_ui(&quot;indicator_area&quot;, object = output)
+)
 
-<a id="lgbfscotland"></a>
-    <div class="doc doc-contents first">
+def server(input, output, session):
+    output.mod_server(&quot;indicator_area&quot;, object = output)
 
-
-
-
-
-
-
-
-
-
-<div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-    </div>
-
-</div></div>
+App(ui=app_ui, server=server)
+</code></pre></div>
             </div>
         </div>
 

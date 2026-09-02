@@ -38,6 +38,19 @@
                             <li class="nav-item">
                                 <a href="." class="nav-link active" aria-current="page">Introduction</a>
                             </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Articles</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="articles/data_workflow/" class="dropdown-item">Data workflow</a>
+</li>
+                                    
+<li>
+    <a href="articles/indicator_objects/" class="dropdown-item">Indicator objects</a>
+</li>
+                                </ul>
+                            </li>
                             <li class="nav-item">
                                 <a href="reference/SUMMARY/" class="nav-link">Reference</a>
                             </li>
@@ -55,9 +68,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="reference/SUMMARY/" class="nav-link">
+                                <a rel="next" href="articles/data_workflow/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/jsleight1/lgbfscotland/edit/master/docs/index.md" class="nav-link"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
                             </li>
                     </ul>
                 </div>
@@ -77,22 +93,23 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#lgbfscotland" class="nav-link">lgbfscotland</a>
+            <li class="nav-item" data-bs-level="2"><a href="#lgbfscotland-v102" class="nav-link">lgbfscotland v1.0.2</a>
               <ul class="nav flex-column">
               </ul>
             </li>
             
-            <li class="nav-item" data-bs-level="1"><a href="#installation" class="nav-link">Installation</a>
+            <li class="nav-item" data-bs-level="2"><a href="#installation" class="nav-link">Installation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
             
-            <li class="nav-item" data-bs-level="1"><a href="#usage" class="nav-link">Usage</a>
+            <li class="nav-item" data-bs-level="2"><a href="#usage" class="nav-link">Usage</a>
               <ul class="nav flex-column">
+              </ul>
+            </li>
+            
             <li class="nav-item" data-bs-level="2"><a href="#disclaimer" class="nav-link">Disclaimer</a>
               <ul class="nav flex-column">
-              </ul>
-            </li>
               </ul>
             </li>
         </ul>
@@ -100,20 +117,20 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="lgbfscotland">lgbfscotland</h1>
-<p>This repository contains a Python package for the `lgbfscotland' shiny
-application. This shiny application downloads, processes and presents local
-government benchmarking framework (LGBF) data.</p>
-<h1 id="installation">Installation</h1>
+<h2 id="lgbfscotland-v102">lgbfscotland v1.0.2</h2>
+<p>This repository contains a Python package for the
+<a href="https://www.lgbfscotland.co.uk/">lgbfscotland</a> shiny application. This shiny
+application downloads, processes and presents local government benchmarking
+framework (LGBF) data.</p>
+<h2 id="installation">Installation</h2>
 <p><code>lgbfscotland</code> is structured as a <a href="https://docs.astral.sh/uv/">uv</a> package and
 can be installed by cloning the repo and performing the following:</p>
 <pre><code>pip install uv
 uv sync
 </code></pre>
-<h1 id="usage">Usage</h1>
-<p><code>lgbfscotland</code> using <code>Dynaconf</code> to separate usage in development and
-production envrionments. To run the app locally a <code>.env</code> file must be
-created as follows:</p>
+<h2 id="usage">Usage</h2>
+<p><code>lgbfscotland</code> using <code>Dynaconf</code> to separate usage in development and production
+envrionments. To run the app locally a <code>.env</code> file must be created as follows:</p>
 <pre><code>ENV_FOR_DYNACONF=&quot;development&quot;
 </code></pre>
 <p>The next step is to download the processed LGBF data. This can be done within a
@@ -121,7 +138,8 @@ python session.</p>
 <pre><code>from lgbfscotland.utils_data_processing.py import save_lgbf_data
 save_lgbf_data()
 </code></pre>
-<p>This will save the LGBF as a parquet file. The shiny app can then by run locally from your terminal.</p>
+<p>This will save the LGBF as a parquet file. The shiny app can then by run locally
+from your terminal.</p>
 <pre><code>uv run shiny run app.py
 </code></pre>
 <p>Alternatively a dockerised version of the application is available from
@@ -220,5 +238,5 @@ consulted when using this application.</p></div>
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-09-01 19:20:10.788471+00:00
+Build Date UTC : 2026-09-02 22:19:44.032525+00:00
 -->
