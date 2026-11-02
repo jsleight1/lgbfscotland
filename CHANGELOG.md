@@ -1,5 +1,9 @@
 # Change log
 
+## 1.0.3
+
+* Fixes to metadata csv and azure blob processing for LGBF data download
+
 ## 1.0.2
 
 * Add `data_workflow` and `indicator_objects` articles to documentation.
