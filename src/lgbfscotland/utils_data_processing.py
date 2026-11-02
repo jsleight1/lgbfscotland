@@ -32,18 +32,18 @@ def process_lgbf_data(
         URL for lgbf data in spatial hub
     """
     metadata_cols = _required_lgbf_metadata_cols()
-    metadata = _read_bytes_csv(metadata_url).rename(columns=metadata_cols)[
-        metadata_cols.values()
-    ]
+    metadata = _read_bytes_csv(metadata_url, encoding="ISO-8859-1").rename(
+        columns=metadata_cols
+    )[metadata_cols.values()]
     data = _read_bytes_csv(data_url)
     output = data.merge(metadata, on="Indicators_Information_Code", how="inner")
     return output
 
 
-def _read_bytes_csv(x: str) -> pd.DataFrame:
+def _read_bytes_csv(x: str, **kwargs) -> pd.DataFrame:
     req = requests.get(x)
     req.raise_for_status()
-    return pd.read_csv(io.BytesIO(req.content))
+    return pd.read_csv(io.BytesIO(req.content), **kwargs)
 
 
 def _required_lgbf_metadata_cols() -> Dict[str, str]:
@@ -96,7 +96,7 @@ def _save_azure_lgbf_data(
     parquet_buffer = io.BytesIO()
     data.to_parquet(parquet_buffer, engine="pyarrow")
     parquet_buffer.seek(0)
-    blob_client = get_blob_client(settings=settings)
+    blob_client = _get_blob_client(settings=settings)
     blob_client.upload_blob(parquet_buffer, overwrite=True)
     return blob_client.exists()
 

@@ -15,14 +15,20 @@ class test_settings:
 
 def test_process_lgbf_data(snapshot, mocker):
     data_map = {"metadata": example_lgbf_metadata(), "data": example_lgbf_data()}
+
+    def mock_data_get(x, **kwargs):
+        return data_map.get(x)
+
     mock = mocker.patch(
-        "lgbfscotland.utils_data_processing._read_bytes_csv",
-        side_effect=lambda x: data_map.get(x),
+        "lgbfscotland.utils_data_processing._read_bytes_csv", side_effect=mock_data_get
     )
     output = process_lgbf_data("metadata", "data")
     assert isinstance(output, pd.DataFrame)
     assert output.shape == (8, 18)
-    assert mock.call_args_list == [mocker.call("metadata"), mocker.call("data")]
+    assert mock.call_args_list == [
+        mocker.call("metadata", encoding="ISO-8859-1"),
+        mocker.call("data"),
+    ]
     snapshot.assert_match(str(output), "process_lgbf_data.txt")
 
 
