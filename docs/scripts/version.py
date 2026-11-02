@@ -2,5 +2,6 @@
 
 from importlib.metadata import version
 
+
 def define_env(env):
-    env.variables['package_version'] = version("lgbfscotland")
+    env.variables["package_version"] = version("lgbfscotland")

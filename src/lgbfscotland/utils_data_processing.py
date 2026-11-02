@@ -32,9 +32,9 @@ def process_lgbf_data(
         URL for lgbf data in spatial hub
     """
     metadata_cols = _required_lgbf_metadata_cols()
-    metadata = _read_bytes_csv(metadata_url, encoding = "ISO-8859-1").rename(columns=metadata_cols)[
-        metadata_cols.values()
-    ]
+    metadata = _read_bytes_csv(metadata_url, encoding="ISO-8859-1").rename(
+        columns=metadata_cols
+    )[metadata_cols.values()]
     data = _read_bytes_csv(data_url)
     output = data.merge(metadata, on="Indicators_Information_Code", how="inner")
     return output
