@@ -350,9 +350,9 @@ from either local or azure remote parquet file.</p>
 <span class="sd">        URL for lgbf data in spatial hub</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">metadata_cols</span> <span class="o">=</span> <span class="n">_required_lgbf_metadata_cols</span><span class="p">()</span>
-    <span class="n">metadata</span> <span class="o">=</span> <span class="n">_read_bytes_csv</span><span class="p">(</span><span class="n">metadata_url</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">metadata_cols</span><span class="p">)[</span>
-        <span class="n">metadata_cols</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-    <span class="p">]</span>
+    <span class="n">metadata</span> <span class="o">=</span> <span class="n">_read_bytes_csv</span><span class="p">(</span><span class="n">metadata_url</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;ISO-8859-1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="n">metadata_cols</span>
+    <span class="p">)[</span><span class="n">metadata_cols</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">_read_bytes_csv</span><span class="p">(</span><span class="n">data_url</span><span class="p">)</span>
     <span class="n">output</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;Indicators_Information_Code&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">output</span>
