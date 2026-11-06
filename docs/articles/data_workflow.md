@@ -11,6 +11,6 @@ Hub](https://data.spatialhub.scot/dataset/local_government_benchmarking_framewor
 
 The 'LGBF indicators information' and 'LGBF Data Table Real' data sets are
 obtained periodically using a GitHub action and manipulated into a single data
-set. This data workflow creates a single parquet file which are stored as  in an
+set. This data workflow creates a single parquet file which are stored as in an
 Azure blob. This Azure blob is accessed when the shiny application launches. The
-data set is periodically updated every 6 months using a GitHub action.
+data set is periodically updated every 6 months using an Azure container app job.

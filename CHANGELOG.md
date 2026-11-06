@@ -1,5 +1,10 @@
 # Change log
 
+## 1.0.4
+
+* Combine `dockerised.yml`, `document.yml` and `tag.yml` into `deploy.yml` github workflow.
+* Migrate automated LGBF data download to Azure container app job.
+
 ## 1.0.3
 
 * Fixes to metadata csv and azure blob processing for LGBF data download
